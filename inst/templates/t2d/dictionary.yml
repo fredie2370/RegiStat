@@ -1,0 +1,140 @@
+# RegiStat data dictionary: cross-sectional type 2 diabetes (T2D) registry.
+#
+# This is an EXAMPLE template. Adapt names, ranges, units and labels to your
+# own study. Quote choice values such as "yes" and "no": unquoted yes/no are
+# read by YAML as TRUE/FALSE.
+#
+# The identifier must be a pseudonymised study code. Never use the hospital
+# file number, name, initials, date of birth or any other direct identifier.
+study:
+  id: t2d
+  version: "0.1.0"
+  title:
+    en: "Type 2 diabetes complications: cross-sectional registry"
+    es: "Complicaciones de diabetes tipo 2: registro transversal"
+
+variables:
+  - name: record_id
+    type: id
+    required: true
+    label: {en: "Study record code", es: "Código de registro del estudio"}
+    description:
+      en: "Pseudonymised code assigned by the study team. Not the hospital file number."
+      es: "Código seudonimizado asignado por el equipo del estudio. No es el número de expediente."
+
+  - name: visit_date
+    type: date
+    required: true
+    label: {en: "Visit date", es: "Fecha de la visita"}
+    description:
+      en: "ISO format YYYY-MM-DD."
+      es: "Formato ISO AAAA-MM-DD."
+
+  - name: sex_at_birth
+    type: categorical
+    required: true
+    label: {en: "Sex assigned at birth", es: "Sexo asignado al nacer"}
+    description:
+      en: "Sex as recorded at birth. Gender identity is not collected by this template; add a variable if it matters for your study."
+      es: "Sexo registrado al nacer. Esta plantilla no recoge identidad de género; agregue una variable si es relevante para su estudio."
+    choices:
+      - {value: "female", label: {en: "Female", es: "Mujer"}}
+      - {value: "male", label: {en: "Male", es: "Hombre"}}
+      - {value: "intersex", label: {en: "Intersex / differences of sex development", es: "Intersexual / diferencias del desarrollo sexual"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: age_years
+    type: integer
+    required: true
+    unit: "years"
+    min: 18
+    max: 110
+    label: {en: "Age", es: "Edad"}
+
+  - name: weight_kg
+    type: numeric
+    unit: "kg"
+    min: 25
+    max: 300
+    label: {en: "Body weight", es: "Peso corporal"}
+
+  - name: height_cm
+    type: numeric
+    unit: "cm"
+    min: 100
+    max: 230
+    label: {en: "Height", es: "Estatura"}
+
+  - name: systolic_bp_mmhg
+    type: integer
+    unit: "mmHg"
+    min: 60
+    max: 260
+    label: {en: "Systolic blood pressure", es: "Presión arterial sistólica"}
+
+  - name: diastolic_bp_mmhg
+    type: integer
+    unit: "mmHg"
+    min: 30
+    max: 160
+    label: {en: "Diastolic blood pressure", es: "Presión arterial diastólica"}
+
+  - name: hba1c_pct
+    type: numeric
+    unit: "%"
+    min: 3
+    max: 20
+    label: {en: "Glycated haemoglobin (HbA1c)", es: "Hemoglobina glucosilada (HbA1c)"}
+
+  - name: fasting_glucose_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 30
+    max: 800
+    label: {en: "Fasting glucose", es: "Glucosa en ayuno"}
+
+  - name: creatinine_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 0.2
+    max: 15
+    label: {en: "Serum creatinine", es: "Creatinina sérica"}
+
+  - name: triglycerides_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 20
+    max: 3000
+    label: {en: "Triglycerides", es: "Triglicéridos"}
+
+  - name: hypertension
+    type: categorical
+    label: {en: "Hypertension", es: "Hipertensión"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: ckd
+    type: categorical
+    label: {en: "Chronic kidney disease", es: "Enfermedad renal crónica"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: retinopathy
+    type: categorical
+    label: {en: "Diabetic retinopathy", es: "Retinopatía diabética"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+# Cross-field rules. The expression must be TRUE when the row is valid.
+rules:
+  - id: bp_order
+    expr: "diastolic_bp_mmhg < systolic_bp_mmhg"
+    message:
+      en: "Diastolic pressure must be lower than systolic pressure."
+      es: "La presión diastólica debe ser menor que la sistólica."
