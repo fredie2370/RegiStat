@@ -1,0 +1,28 @@
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rcheck/
+*.tar.gz
+.Renviron
+
+# Local databases and exports: RegiStat stores real study data here.
+# Real patient data must NEVER be committed to a public repository.
+*.sqlite
+*.sqlite3
+*.db
+*.rds
+*.RData
+*.xlsx
+*.xls
+private/
+data-private/
+local-data/
+secrets/
+*.key
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

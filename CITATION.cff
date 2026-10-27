@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+title: "RegiStat: Offline Bilingual Data Capture and Reproducible Analysis for Clinical Registries"
+type: software
+version: 0.0.0.9000
+license: GPL-3.0-or-later
+authors:
+  - family-names: "Gutiérrez Rodríguez"
+    given-names: "Manuel"
+    email: "mgutierrezr_9902@outlook.com"
+    orcid: "https://orcid.org/0009-0006-8386-5238"
+repository-code: "https://github.com/fredie2370/RegiStat"
+keywords:
+  - clinical registry
+  - electronic data capture
+  - reproducible research
+  - R
+  - Shiny

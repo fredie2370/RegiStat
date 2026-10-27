@@ -1,0 +1,9 @@
+^LICENSE\.md$
+^\.github$
+^CITATION\.cff$
+^CONTRIBUTING\.md$
+^SECURITY\.md$
+^\.gitignore$
+^codemeta\.json$
+^.*\.Rproj$
+^\.Rproj\.user$
