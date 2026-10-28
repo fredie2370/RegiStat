@@ -13,16 +13,21 @@ Description: Free and open-source toolkit for clinical and laboratory
     without an internet connection. This development version provides a
     metadata-driven data dictionary with Spanish and English labels, a
     validation engine (required values, types, ranges, allowed choices,
-    duplicated identifiers and cross-field rules), and a seeded generator of
-    synthetic registry data with known injected errors for testing. Electronic
-    case report form capture, a Shiny interface and automated statistical
-    reports are planned.
+    duplicated identifiers and cross-field rules), a local SQLite registry
+    with a tamper-evident audit trail, and a seeded generator of synthetic
+    registry data with known injected errors for testing. A Shiny interface
+    and automated statistical reports are planned.
 License: GPL (>= 3)
 URL: https://github.com/fredie2370/RegiStat
 BugReports: https://github.com/fredie2370/RegiStat/issues
 Depends: R (>= 4.1.0)
 Imports:
+    DBI,
+    digest,
+    jsonlite,
+    RSQLite,
     stats,
+    utils,
     withr,
     yaml
 Suggests:

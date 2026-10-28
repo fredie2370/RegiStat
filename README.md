@@ -19,8 +19,10 @@ para cualquier nivel de recursos.
 | Bilingual metadata-driven data dictionary / Diccionario de datos bilingüe | Available / Disponible |
 | Validation engine (required, type, range, choices, duplicates, cross-field rules) / Motor de validación | Available / Disponible |
 | Seeded synthetic data with known injected errors / Datos sintéticos con errores conocidos | Available / Disponible |
-| Offline eCRF capture (Shiny + SQLite) / Captura eCRF sin conexión | Planned / Planeado |
-| Audit trail, roles, pseudonymisation / Bitácora, roles, seudonimización | Planned / Planeado |
+| Local SQLite registry: add, update, soft-delete, import / Registro SQLite local | Available / Disponible |
+| Tamper-evident audit trail (hash chain, mandatory reasons) / Bitácora de auditoría con cadena de hashes | Available / Disponible |
+| Shiny capture interface (eCRF) / Interfaz de captura Shiny (eCRF) | Planned / Planeado |
+| Authentication, roles, pseudonymisation helpers / Autenticación, roles, seudonimización | Planned / Planeado |
 | Integrated reproducible analysis, tables and plots / Análisis integrado, tablas y gráficas | Planned / Planeado |
 | Parameterised R Markdown reports (es/en) / Reportes R Markdown parametrizados | Planned / Planeado |
 
@@ -48,7 +50,31 @@ head(issues)
 
 # Seeded errors are all found, and no clean row is flagged:
 setequal(paste(issues$row, issues$rule), paste(sim$truth$row, sim$truth$rule))
+
+# A local registry with an audit trail (one SQLite file, no network):
+reg <- registry_create("study.sqlite", dict, user = "ana")
+registry_import(reg, synthetic_t2d(50, seed = 2)$data, user = "ana")
+registry_update(reg, "SYN-0001", list(age_years = 61),
+                user = "ana", reason = "Corrected after source check")
+registry_audit(reg, "SYN-0001")
+registry_verify(reg)      # chain check + replay of the audit trail
+registry_close(reg)
 ```
+
+### What the audit trail does and does not guarantee
+
+Every change is validated, then written to the registry and to an
+append-only audit trail in one transaction. Each audit entry carries the hash
+of the previous one, so editing or removing an entry in the middle of the
+chain, or editing records directly in the database file, is detected by
+`registry_verify()`.
+
+It is **tamper-evident, not tamper-proof**. Someone with write access to the
+file who understands the format could rewrite the whole chain, and removing
+the *last* entries leaves a valid chain. Save the `head` hash returned by
+`registry_verify()` outside the database and pass it later as
+`expected_head` to detect that. User names are self-declared: there is no
+authentication yet.
 
 ## Design principles / Principios de diseño
 
