@@ -26,11 +26,11 @@ para cualquier nivel de recursos.
 
 ## Installation / Instalación
 
-The repository is planned at <https://github.com/fredie2370/RegiStat>
-(not yet published). Until then, install from a local copy:
+Install from a local copy:
 
 ```r
-install.packages(c("yaml", "withr", "testthat"))
+install.packages(c("testthat", "shiny", "bslib", "DT", "DBI", "RSQLite", "digest",
++                    "jsonlite", "readxl", "withr", "yaml", "writexl"))
 install.packages("path/to/RegiStat", repos = NULL, type = "source")
 ```
 
