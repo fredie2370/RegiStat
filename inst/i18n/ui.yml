@@ -1,0 +1,577 @@
+# RegiStat interface texts. One entry per text, with an "en" and an "es"
+# version. %s and %d are filled in by the program; write %% for a literal %.
+# To add a language, add a new key (for example "pt") to every entry.
+
+app_title:
+  en: "RegiStat"
+  es: "RegiStat"
+app_subtitle:
+  en: "Offline clinical registry"
+  es: "Registro clínico sin conexión"
+lang_label:
+  en: "Language"
+  es: "Idioma"
+user_placeholder:
+  en: "Your name (saved in the audit trail)"
+  es: "Su nombre (se guarda en la bitácora)"
+close_registry:
+  en: "Close registry"
+  es: "Cerrar registro"
+cancel:
+  en: "Cancel"
+  es: "Cancelar"
+choose:
+  en: "— choose —"
+  es: "— elegir —"
+required_note:
+  en: "* required"
+  es: "* obligatorio"
+empty_value:
+  en: "(empty)"
+  es: "(vacío)"
+answer_yes:
+  en: "Yes"
+  es: "Sí"
+answer_no:
+  en: "No"
+  es: "No"
+
+start_title:
+  en: "Open or create a registry"
+  es: "Abrir o crear un registro"
+start_intro:
+  en: "Everything is stored in a folder on this computer. Nothing is sent over the internet."
+  es: "Todo se guarda en una carpeta de esta computadora. No se envía nada por internet."
+start_folder:
+  en: "Project folder"
+  es: "Carpeta del proyecto"
+start_template:
+  en: "Study template (only when creating)"
+  es: "Plantilla de estudio (solo al crear)"
+start_dict_file:
+  en: "Or your own dictionary file (YAML, optional)"
+  es: "O su propio archivo de diccionario (YAML, opcional)"
+start_open:
+  en: "Open existing registry"
+  es: "Abrir registro existente"
+start_create:
+  en: "Create new registry"
+  es: "Crear registro nuevo"
+msg_user_required:
+  en: "Enter your name at the top of the page first. It is saved in the audit trail."
+  es: "Escriba primero su nombre en la parte superior. Se guarda en la bitácora."
+msg_no_registry:
+  en: "There is no registry in that folder. Use \"Create new registry\"."
+  es: "No hay un registro en esa carpeta. Use «Crear registro nuevo»."
+msg_registry_exists:
+  en: "A registry already exists in that folder. Use \"Open existing registry\"."
+  es: "Ya existe un registro en esa carpeta. Use «Abrir registro existente»."
+msg_folder_empty:
+  en: "Type the path of a folder."
+  es: "Escriba la ruta de una carpeta."
+msg_error:
+  en: "Something went wrong: %s"
+  es: "Ocurrió un problema: %s"
+
+tab_capture:
+  en: "Capture"
+  es: "Captura"
+tab_records:
+  en: "Records"
+  es: "Registros"
+tab_import:
+  en: "Import"
+  es: "Importar"
+tab_audit:
+  en: "Audit trail"
+  es: "Bitácora"
+tab_screening:
+  en: "Case finding"
+  es: "Cotejo"
+
+capture_title:
+  en: "New record"
+  es: "Nuevo registro"
+capture_save:
+  en: "Save record"
+  es: "Guardar registro"
+capture_clear:
+  en: "Clear form"
+  es: "Limpiar formulario"
+capture_keys:
+  en: "Enter moves to the next field; Enter in the last field saves."
+  es: "Enter pasa al siguiente campo; Enter en el último campo guarda."
+capture_saved:
+  en: "Record \"%s\" saved."
+  es: "Registro «%s» guardado."
+capture_problems:
+  en: "Not saved. Please fix:"
+  es: "No se guardó. Corrija lo siguiente:"
+
+records_show_deleted:
+  en: "Show deleted records"
+  es: "Mostrar registros eliminados"
+records_edit:
+  en: "Edit selected"
+  es: "Editar seleccionado"
+records_delete:
+  en: "Delete selected"
+  es: "Eliminar seleccionado"
+records_download:
+  en: "Download CSV"
+  es: "Descargar CSV"
+records_select_first:
+  en: "Select a record in the table first."
+  es: "Primero seleccione un registro en la tabla."
+records_deleted_col:
+  en: "Deleted"
+  es: "Eliminado"
+reason_required:
+  en: "A reason is required. It is saved in the audit trail."
+  es: "El motivo es obligatorio. Se guarda en la bitácora."
+edit_title:
+  en: "Edit record %s"
+  es: "Editar registro %s"
+edit_reason:
+  en: "Reason for the change (required)"
+  es: "Motivo del cambio (obligatorio)"
+edit_save:
+  en: "Save changes"
+  es: "Guardar cambios"
+edit_saved:
+  en: "Record \"%s\" updated."
+  es: "Registro «%s» actualizado."
+edit_no_changes:
+  en: "Nothing was changed."
+  es: "No se cambió nada."
+delete_title:
+  en: "Delete record %s"
+  es: "Eliminar registro %s"
+delete_explain:
+  en: "The record is hidden from the tables but stays in the audit trail. This cannot be undone from here."
+  es: "El registro se oculta de las tablas pero permanece en la bitácora. No se puede deshacer desde aquí."
+delete_reason:
+  en: "Reason for deleting (required)"
+  es: "Motivo de la eliminación (obligatorio)"
+delete_confirm:
+  en: "Delete record"
+  es: "Eliminar registro"
+delete_done:
+  en: "Record \"%s\" deleted."
+  es: "Registro «%s» eliminado."
+
+import_title:
+  en: "Import from a spreadsheet"
+  es: "Importar desde una hoja de cálculo"
+import_intro:
+  en: "Choose a CSV or Excel file, check that each variable is matched to the right column, and press Check. Nothing is saved until the check finds no problems and you press Import."
+  es: "Elija un archivo CSV o Excel, verifique que cada variable corresponda a la columna correcta y presione Revisar. No se guarda nada hasta que la revisión no encuentre problemas y presione Importar."
+import_file:
+  en: "File (.csv, .xlsx, .xls)"
+  es: "Archivo (.csv, .xlsx, .xls)"
+import_browse:
+  en: "Browse…"
+  es: "Examinar…"
+import_sheet:
+  en: "Sheet"
+  es: "Hoja"
+import_date_format:
+  en: "Date format in the file"
+  es: "Formato de fecha en el archivo"
+fmt_iso:
+  en: "Year-month-day (2024-05-31)"
+  es: "Año-mes-día (2024-05-31)"
+fmt_dmy:
+  en: "Day/month/year (31/05/2024)"
+  es: "Día/mes/año (31/05/2024)"
+fmt_mdy:
+  en: "Month/day/year (05/31/2024)"
+  es: "Mes/día/año (05/31/2024)"
+import_decimal:
+  en: "Decimal mark in the file"
+  es: "Separador decimal en el archivo"
+dec_point:
+  en: "Point (82.5)"
+  es: "Punto (82.5)"
+dec_comma:
+  en: "Comma (82,5)"
+  es: "Coma (82,5)"
+import_mapping:
+  en: "Match variables to file columns"
+  es: "Relacionar variables con columnas del archivo"
+import_not_in_file:
+  en: "(not in the file)"
+  es: "(no está en el archivo)"
+import_check:
+  en: "Check"
+  es: "Revisar"
+import_do:
+  en: "Import"
+  es: "Importar"
+import_rows_read:
+  en: "%d rows read from the file."
+  es: "Se leyeron %d filas del archivo."
+import_ready:
+  en: "All good: %d records are ready to import."
+  es: "Todo en orden: %d registros listos para importar."
+import_problems:
+  en: "%d problem(s) in %d row(s). Nothing was imported. Fix the file or the matching and check again."
+  es: "%d problema(s) en %d fila(s). No se importó nada. Corrija el archivo o la relación de columnas y revise de nuevo."
+import_done:
+  en: "%d records imported."
+  es: "Se importaron %d registros."
+import_col_row:
+  en: "Row"
+  es: "Fila"
+import_col_record:
+  en: "Record"
+  es: "Registro"
+import_col_variable:
+  en: "Variable"
+  es: "Variable"
+import_col_message:
+  en: "Problem"
+  es: "Problema"
+import_download_report:
+  en: "Download problem report"
+  es: "Descargar informe de problemas"
+import_row_note:
+  en: "Row = position among the non-empty data rows of the file (the header is not counted)."
+  es: "Fila = posición entre las filas con datos del archivo (el encabezado no cuenta)."
+import_need_file:
+  en: "Choose a file first."
+  es: "Primero elija un archivo."
+import_no_columns:
+  en: "Match at least one variable to a column."
+  es: "Relacione al menos una variable con una columna."
+
+audit_title:
+  en: "Audit trail"
+  es: "Bitácora de auditoría"
+audit_verify:
+  en: "Verify integrity"
+  es: "Verificar integridad"
+audit_expected_head:
+  en: "Saved head value (optional)"
+  es: "Valor de cierre guardado (opcional)"
+audit_ok:
+  en: "Verification passed: %d entries, no problems found."
+  es: "Verificación correcta: %d entradas, sin problemas."
+audit_failed:
+  en: "Verification found problems:"
+  es: "La verificación encontró problemas:"
+audit_head:
+  en: "Head value (save it outside the database):"
+  es: "Valor de cierre (guárdelo fuera de la base de datos):"
+audit_note:
+  en: "The audit trail reveals tampering but cannot prevent it. User names are typed by the user and are not verified."
+  es: "La bitácora permite detectar manipulaciones, pero no las impide. Los nombres de usuario los escribe quien usa el programa y no se verifican."
+col_seq:
+  en: "No."
+  es: "N.º"
+col_time:
+  en: "Date and time (UTC)"
+  es: "Fecha y hora (UTC)"
+col_user:
+  en: "User"
+  es: "Usuario"
+col_action:
+  en: "Action"
+  es: "Acción"
+col_record:
+  en: "Record"
+  es: "Registro"
+col_reason:
+  en: "Reason"
+  es: "Motivo"
+col_summary:
+  en: "Details"
+  es: "Detalle"
+action_create:
+  en: "Registry created"
+  es: "Registro creado"
+action_add:
+  en: "Added"
+  es: "Alta"
+action_update:
+  en: "Changed"
+  es: "Cambio"
+action_delete:
+  en: "Deleted"
+  es: "Eliminado"
+action_reflist_import:
+  en: "List imported"
+  es: "Lista importada"
+audit_created:
+  en: "Registry created with the study dictionary"
+  es: "Registro creado con el diccionario del estudio"
+audit_added:
+  en: "New record"
+  es: "Registro nuevo"
+audit_deleted:
+  en: "Record hidden (soft delete)"
+  es: "Registro oculto (eliminación lógica)"
+
+dt_search:
+  en: "Search:"
+  es: "Buscar:"
+dt_length:
+  en: "Show _MENU_"
+  es: "Mostrar _MENU_"
+dt_info:
+  en: "_START_ to _END_ of _TOTAL_"
+  es: "_START_ a _END_ de _TOTAL_"
+dt_info_empty:
+  en: "No entries"
+  es: "Sin entradas"
+dt_empty:
+  en: "No data yet"
+  es: "Aún no hay datos"
+dt_zero:
+  en: "No matches"
+  es: "Sin coincidencias"
+dt_first:
+  en: "First"
+  es: "Primero"
+dt_last:
+  en: "Last"
+  es: "Último"
+dt_next:
+  en: "Next"
+  es: "Siguiente"
+dt_previous:
+  en: "Previous"
+  es: "Anterior"
+
+scr_err_file_empty:
+  en: "Enter the file number."
+  es: "Escriba el número de expediente."
+scr_err_date:
+  en: "'%s' is not a valid date. Use YYYY-MM-DD."
+  es: "«%s» no es una fecha válida. Use AAAA-MM-DD."
+scr_err_found:
+  en: "Choose whether the file was found or not."
+  es: "Elija si el expediente se encontró o no."
+scr_err_duplicate:
+  en: "File %s already has a review on %s."
+  es: "El expediente %s ya tiene una revisión el %s."
+scr_err_list_empty:
+  en: "The list has no file numbers."
+  es: "La lista no contiene números de expediente."
+scr_err_same_list:
+  en: "This list is identical to the current version (%d). Nothing was loaded."
+  es: "Esta lista es idéntica a la versión actual (%d). No se cargó nada."
+scr_err_review_missing:
+  en: "Review %d was not found."
+  es: "No se encontró la revisión %d."
+scr_err_review_deleted:
+  en: "Review %d was deleted and cannot be changed."
+  es: "La revisión %d fue eliminada y no se puede modificar."
+scr_err_no_changes:
+  en: "No changes: the new values are identical to the current ones."
+  es: "Sin cambios: los valores nuevos son iguales a los actuales."
+scr_err_need_two:
+  en: "At least two versions of the list are needed to compare."
+  es: "Se necesitan al menos dos versiones de la lista para compararlas."
+scr_err_version_missing:
+  en: "That version of the list does not exist."
+  es: "Esa versión de la lista no existe."
+
+scr_intro:
+  en: "Check which hospital file numbers appear on a reference list (for example, the hospital's list of patients with diabetes) and keep a log of reviews. File numbers are stored in a separate file, never in the registry."
+  es: "Verifique qué números de expediente aparecen en una lista de referencia (por ejemplo, la lista del hospital de pacientes con diabetes) y lleve una bitácora de revisiones. Los números de expediente se guardan en un archivo aparte, nunca en el registro."
+scr_privacy:
+  en: "The file screening.sqlite contains real file numbers. Keep it in a restricted folder and never share or publish it."
+  es: "El archivo screening.sqlite contiene números de expediente reales. Guárdelo en una carpeta de acceso restringido y nunca lo comparta ni lo publique."
+scr_activate:
+  en: "Activate case finding"
+  es: "Activar el cotejo"
+scr_activate_note:
+  en: "This creates a separate file next to the registry."
+  es: "Esto crea un archivo aparte junto al registro."
+scr_sub_reviews:
+  en: "Reviews"
+  es: "Revisiones"
+scr_sub_list:
+  en: "Reference list"
+  es: "Lista de referencia"
+scr_sub_summary:
+  en: "Summary"
+  es: "Resumen"
+scr_sub_integrity:
+  en: "Integrity"
+  es: "Integridad"
+scr_review_title:
+  en: "New review"
+  es: "Nueva revisión"
+scr_file_no:
+  en: "File number"
+  es: "Número de expediente"
+scr_review_date:
+  en: "Review date"
+  es: "Fecha de revisión"
+scr_found:
+  en: "Was the file found?"
+  es: "¿Se encontró el expediente?"
+scr_found_yes:
+  en: "Found"
+  es: "Se encontró"
+scr_found_no:
+  en: "Not found"
+  es: "No se encontró"
+scr_study_code:
+  en: "Study code (optional)"
+  es: "Código del estudio (opcional)"
+scr_note:
+  en: "Note (optional; no names)"
+  es: "Nota (opcional; sin nombres)"
+scr_save:
+  en: "Save review"
+  es: "Guardar revisión"
+scr_saved_listed:
+  en: "Review saved. File %s IS on the reference list (version %d)."
+  es: "Revisión guardada. El expediente %s SÍ está en la lista de referencia (versión %d)."
+scr_saved_not_listed:
+  en: "Review saved. File %s is NOT on the reference list (version %d)."
+  es: "Revisión guardada. El expediente %s NO está en la lista de referencia (versión %d)."
+scr_saved_no_list:
+  en: "Review saved. No reference list is loaded yet, so the status is unknown."
+  es: "Revisión guardada. Aún no hay lista de referencia, así que no se conoce el estado."
+scr_col_id:
+  en: "No."
+  es: "N.º"
+scr_col_file:
+  en: "File number"
+  es: "Expediente"
+scr_col_date:
+  en: "Review date"
+  es: "Fecha de revisión"
+scr_col_found:
+  en: "Found"
+  es: "Encontrado"
+scr_col_listed:
+  en: "On the list"
+  es: "En la lista"
+scr_col_code:
+  en: "Study code"
+  es: "Código del estudio"
+scr_col_note:
+  en: "Note"
+  es: "Nota"
+scr_unknown:
+  en: "-"
+  es: "-"
+scr_edit_title:
+  en: "Edit review %d"
+  es: "Editar revisión %d"
+scr_edit_saved:
+  en: "Review %d updated."
+  es: "Revisión %d actualizada."
+scr_delete_title:
+  en: "Delete review %d"
+  es: "Eliminar revisión %d"
+scr_delete_done:
+  en: "Review %d deleted."
+  es: "Revisión %d eliminada."
+scr_list_none:
+  en: "No reference list loaded yet."
+  es: "Aún no se ha cargado una lista de referencia."
+scr_list_current:
+  en: "Current version: %d. Loaded %s (UTC). %d file numbers."
+  es: "Versión actual: %d. Cargada %s (UTC). %d números de expediente."
+scr_list_file:
+  en: "List file (.xlsx, .xls, .csv)"
+  es: "Archivo de la lista (.xlsx, .xls, .csv)"
+scr_list_column:
+  en: "Column (number or letter, e.g. B)"
+  es: "Columna (número o letra, p. ej. B)"
+scr_list_first_row:
+  en: "First row with a file number"
+  es: "Primera fila con un número de expediente"
+scr_list_separator:
+  en: "Separator when a cell holds several numbers"
+  es: "Separador cuando una celda tiene varios números"
+scr_list_preview:
+  en: "%d distinct file numbers found, for example: %s"
+  es: "Se encontraron %d números de expediente distintos, por ejemplo: %s"
+scr_list_preview_none:
+  en: "No file numbers found with these settings."
+  es: "No se encontraron números de expediente con esta configuración."
+scr_list_load:
+  en: "Load as new version"
+  es: "Cargar como versión nueva"
+scr_list_loaded:
+  en: "Version %d loaded (%d file numbers). Reviews were re-checked against it."
+  es: "Versión %d cargada (%d números de expediente). Las revisiones se volvieron a cotejar con ella."
+scr_list_versions:
+  en: "Versions"
+  es: "Versiones"
+col_version:
+  en: "Version"
+  es: "Versión"
+col_loaded:
+  en: "Loaded (UTC)"
+  es: "Cargada (UTC)"
+col_source:
+  en: "File"
+  es: "Archivo"
+col_items:
+  en: "File numbers"
+  es: "Expedientes"
+scr_list_pending:
+  en: "On the list but not yet reviewed: %d"
+  es: "En la lista pero aún sin revisar: %d"
+scr_changes_title:
+  en: "Changes from version %d to version %d"
+  es: "Cambios de la versión %d a la versión %d"
+scr_changes_counts:
+  en: "%d file numbers added, %d removed."
+  es: "%d números de expediente agregados, %d retirados."
+scr_changes_reviews:
+  en: "Reviews whose status changed"
+  es: "Revisiones cuyo estado cambió"
+scr_changes_none:
+  en: "No review changed status."
+  es: "Ninguna revisión cambió de estado."
+scr_changes_from:
+  en: "Was on the list"
+  es: "Estaba en la lista"
+scr_changes_to:
+  en: "Is on the list"
+  es: "Está en la lista"
+scr_summary_title:
+  en: "Reviews by month"
+  es: "Revisiones por mes"
+scr_summary_note:
+  en: "Status is computed against the newest reference list."
+  es: "El estado se calcula con la lista de referencia más reciente."
+scr_summary_empty:
+  en: "No reviews yet."
+  es: "Aún no hay revisiones."
+col_month:
+  en: "Month"
+  es: "Mes"
+col_n:
+  en: "Reviews"
+  es: "Revisiones"
+action_review_add:
+  en: "Review added"
+  es: "Revisión agregada"
+action_review_update:
+  en: "Review changed"
+  es: "Revisión modificada"
+action_review_delete:
+  en: "Review deleted"
+  es: "Revisión eliminada"
+audit_review_added:
+  en: "Review of file %s on %s: %s"
+  es: "Revisión del expediente %s el %s: %s"
+audit_review_deleted:
+  en: "Review hidden (soft delete)"
+  es: "Revisión oculta (eliminación lógica)"
+audit_list_loaded:
+  en: "List version %s loaded (%s file numbers)"
+  es: "Lista versión %s cargada (%s expedientes)"
+audit_scr_created:
+  en: "Case-finding file created"
+  es: "Archivo de cotejo creado"

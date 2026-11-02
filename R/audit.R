@@ -136,10 +136,35 @@ registry_verify <- function(reg, expected_head = NULL) {
           "prev_hash, hash FROM audit ORDER BY seq")
   )
   n <- nrow(a)
-  problems <- character()
+  problems <- chain_problems(a)
 
+  problems <- c(problems, replay_problems(reg, a))
+
+  head <- if (n > 0L) a$hash[n] else .genesis_hash
+  if (!is.null(expected_head) && !identical(as.character(expected_head), head)) {
+    problems <- c(problems, paste(
+      "The head of the audit chain does not match the expected value:",
+      "entries may have been removed or rewritten."))
+  }
+
+  structure(
+    list(ok = length(problems) == 0L, n_entries = n, head = head,
+         problems = problems),
+    class = "registat_verification"
+  )
+}
+
+#' Check the hash chain of an audit table (internal)
+#'
+#' Entries must be numbered without gaps, each must point to the hash of the
+#' previous one, and each stored hash must match the entry's content.
+#' @param a A data frame with the audit columns, ordered by `seq`.
+#' @return A character vector of problems.
+#' @noRd
+chain_problems <- function(a) {
+  problems <- character()
   prev <- .genesis_hash
-  for (i in seq_len(n)) {
+  for (i in seq_len(nrow(a))) {
     if (a$seq[i] != i) {
       problems <- c(problems, sprintf(
         "Audit entry %d: sequence gap or reordering (found number %d).",
@@ -157,21 +182,7 @@ registry_verify <- function(reg, expected_head = NULL) {
     }
     prev <- a$hash[i]
   }
-
-  problems <- c(problems, replay_problems(reg, a))
-
-  head <- if (n > 0L) a$hash[n] else .genesis_hash
-  if (!is.null(expected_head) && !identical(as.character(expected_head), head)) {
-    problems <- c(problems, paste(
-      "The head of the audit chain does not match the expected value:",
-      "entries may have been removed or rewritten."))
-  }
-
-  structure(
-    list(ok = length(problems) == 0L, n_entries = n, head = head,
-         problems = problems),
-    class = "registat_verification"
-  )
+  problems
 }
 
 #' Replay the audit trail and compare it with the records table (internal)

@@ -325,19 +325,13 @@ registry_import <- function(reg, data, user, lang = c("en", "es")) {
   if (!is.data.frame(data) || nrow(data) == 0L) {
     abort("'data' must be a data frame with at least one row.")
   }
-  nms <- variable_names(reg$dict)
   idvar <- id_variable(reg$dict)
-
-  rows <- lapply(seq_len(nrow(data)), function(i) {
-    normalize_record(as.list(data[i, , drop = FALSE]), reg$dict)
-  })
-  mat <- matrix(unlist(rows), ncol = length(nms), byrow = TRUE,
-                dimnames = list(NULL, nms))
-  chr <- as.data.frame(mat, stringsAsFactors = FALSE)
+  chr <- normalize_table(data, reg$dict)
   issues <- validate_data(chr, reg$dict, lang)
   if (nrow(issues) > 0L) stop_validation(issues)
   ids <- chr[[idvar]]
   if (anyNA(ids)) abort("The record identifier '%s' is required.", idvar)
+  rows <- lapply(seq_len(nrow(chr)), function(i) unlist(chr[i, , drop = FALSE]))
 
   with_write(reg, {
     existing <- DBI::dbGetQuery(reg$con, "SELECT record_id FROM records")$record_id
@@ -354,6 +348,60 @@ registry_import <- function(reg, data, user, lang = c("en", "es")) {
     }
   })
   invisible(length(rows))
+}
+
+#' Check data before importing them
+#'
+#' Runs exactly the checks of [registry_import()] and reports every problem,
+#' without writing anything: validation against the dictionary plus
+#' identifiers that already exist in the registry (deleted records included)
+#' or are missing.
+#'
+#' @param reg A registry from [registry_open()] or [registry_create()].
+#' @param data A data frame whose columns are named by dictionary variables.
+#' @param lang Language of the messages: `"en"` or `"es"`.
+#' @return A data frame with columns `row`, `record_id`, `variable`, `rule`
+#'   and `message`; zero rows when the data can be imported. `row` is the
+#'   position in `data`.
+#' @seealso [registry_import()], [validate_data()]
+#' @examples
+#' path <- tempfile(fileext = ".sqlite")
+#' reg <- registry_create(path, load_template("t2d"), user = "demo")
+#' sim <- synthetic_t2d(20, seed = 1, error_rate = 0.2)
+#' nrow(registry_check(reg, sim$data))
+#' registry_close(reg)
+#' unlink(path)
+#' @export
+registry_check <- function(reg, data, lang = c("en", "es")) {
+  lang <- match.arg(lang)
+  check_registry(reg)
+  if (!is.data.frame(data) || nrow(data) == 0L) {
+    abort("'data' must be a data frame with at least one row.")
+  }
+  idvar <- id_variable(reg$dict)
+  chr <- normalize_table(data, reg$dict)
+  issues <- validate_data(chr, reg$dict, lang)
+  ids <- chr[[idvar]]
+
+  extra <- list()
+  missing_id <- which(is.na(ids))
+  if (length(missing_id) > 0L && !any(issues$variable == idvar &
+                                      issues$rule == "required")) {
+    extra[[1L]] <- make_issue(missing_id, NA_character_, idvar, "required",
+                              registat_message("required", lang))
+  }
+  existing <- DBI::dbGetQuery(reg$con, "SELECT record_id FROM records")$record_id
+  clash <- which(!is.na(ids) & ids %in% existing)
+  if (length(clash) > 0L) {
+    extra[[length(extra) + 1L]] <- make_issue(
+      clash, ids[clash], idvar, "duplicate_id",
+      vapply(ids[clash], function(x) registat_message("duplicate_id", lang, x),
+             character(1)))
+  }
+  out <- do.call(rbind, c(list(issues), extra))
+  out <- out[order(out$row, out$variable, na.last = TRUE), , drop = FALSE]
+  rownames(out) <- NULL
+  out
 }
 
 #' Read the records and the audit trail
@@ -483,6 +531,29 @@ normalize_record <- function(rec, dict) {
   out <- stats::setNames(rep(NA_character_, length(nms)), nms)
   for (nm in names(rec)) out[[nm]] <- scalar_to_string(rec[[nm]], nm)
   out
+}
+
+#' Normalise every column of a table to trimmed text (internal)
+#'
+#' Columns that the dictionary defines but the table lacks become all `NA`;
+#' columns that the dictionary does not define are an error.
+#' @noRd
+normalize_table <- function(data, dict) {
+  nms <- variable_names(dict)
+  unknown <- setdiff(names(data), nms)
+  if (length(unknown) > 0L) {
+    abort("Unknown variable(s): %s", paste(unknown, collapse = ", "))
+  }
+  cols <- lapply(nms, function(nm) {
+    x <- data[[nm]]
+    if (is.null(x)) return(rep(NA_character_, nrow(data)))
+    if (inherits(x, "Date")) x <- format(x, "%Y-%m-%d")
+    x <- trimws(as.character(x))
+    x[!is.na(x) & !nzchar(x)] <- NA_character_
+    x
+  })
+  names(cols) <- nms
+  as.data.frame(cols, stringsAsFactors = FALSE, check.names = FALSE)
 }
 
 #' Validate one normalised record (internal)

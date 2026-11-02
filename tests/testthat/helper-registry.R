@@ -16,3 +16,10 @@ a_record <- function(id = "SYN-9001", ...) {
 n_rows <- function(reg, table) {
   DBI::dbGetQuery(reg$con, sprintf("SELECT COUNT(*) AS n FROM %s", table))$n
 }
+
+new_screening <- function(env = parent.frame()) {
+  path <- withr::local_tempfile(fileext = ".sqlite", .local_envir = env)
+  scr <- screening_create(path, user = "tester")
+  withr::defer(screening_close(scr), envir = env)
+  scr
+}
