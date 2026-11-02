@@ -1,0 +1,33 @@
+# `r tx("rep_sec_table1")`
+
+```{r table1, results='asis'}
+t1 <- table_one(a, by = by)
+shown <- t1[, setdiff(names(t1), c("variable")), drop = FALSE]
+shown$label[duplicated(shown$label)] <- ""
+names(shown)[1:2] <- c(tx("tbl_variable"), tx("tbl_statistic"))
+knitr::asis_output(paste0(
+  html_table(shown), "\n\n<p class='small text-muted'>",
+  html_escape(tx("rep_note_tests")), "</p>\n\n"))
+```
+
+# `r tx("rep_sec_quality")`
+
+```{r missing, results='asis'}
+m <- missing_summary(a)
+m <- m[m$n_missing > 0L, c("label", "n_missing", "pct_missing"), drop = FALSE]
+if (nrow(m) == 0L) {
+  knitr::asis_output(paste0("\n\n", html_escape(tx("rep_missing_none")), "\n\n"))
+} else {
+  names(m) <- c(tx("tbl_variable"), tx("tbl_missing"), "%")
+  knitr::asis_output(html_table(m))
+}
+```
+
+# `r tx("rep_sec_dist")`
+
+```{r plots, fig.width = 5, fig.height = 3.2, out.width = "48%"}
+for (v in names(a$types)) {
+  if (identical(v, by)) next
+  print(plot_variable(a, v, by = by))
+}
+```

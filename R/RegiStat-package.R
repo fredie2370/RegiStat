@@ -10,5 +10,6 @@
 #' generates carry the identifier prefix `SYN-` and contain no information
 #' about real people. Never commit real patient data to a public repository.
 #'
+#' @importFrom ggplot2 .data
 #' @keywords internal
 "_PACKAGE"

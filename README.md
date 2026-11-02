@@ -24,8 +24,9 @@ para cualquier nivel de recursos.
 | Offline Shiny app: capture form generated from the dictionary, records table with audited edit/delete, import from CSV/Excel with column matching and pre-check, audit viewer, language switch / App Shiny sin conexión: formulario de captura generado del diccionario, tabla de registros con edición y eliminación auditadas, importación CSV/Excel con relación de columnas y revisión previa, visor de bitácora, cambio de idioma | Available / Disponible |
 | Case finding ("cotejo"): reference-list versions, review log, derived status, summary, changes between lists, in a separate file / Cotejo: versiones de la lista de referencia, bitácora de revisiones, estado derivado, resumen, cambios entre listas, en un archivo aparte | Available / Disponible |
 | Authentication, roles, pseudonymisation helpers / Autenticación, roles, seudonimización | Planned / Planeado |
-| Integrated reproducible analysis, tables and plots / Análisis integrado, tablas y gráficas | Planned / Planeado |
-| Parameterised R Markdown reports (es/en) / Reportes R Markdown parametrizados | Planned / Planeado |
+| Descriptive analysis: Table 1 (overall or by group, with tests), missing data, interactive plotly/ggplot2 plots / Análisis descriptivo: Tabla 1 (total o por grupo, con pruebas), datos faltantes, gráficas interactivas | Available / Disponible |
+| Offline reproducible HTML report (R Markdown, es/en) with audit-trail check / Reporte HTML reproducible sin conexión (R Markdown, es/en) con verificación de bitácora | Available / Disponible |
+| Calculated measures: BMI, WHO category, eGFR CKD-EPI 2021 / Medidas calculadas: IMC, categoría OMS, TFGe CKD-EPI 2021 | Available / Disponible |
 
 ## Installation / Instalación
 
@@ -51,6 +52,30 @@ La aplicación se abre en su navegador y funciona sin internet. Escriba su
 nombre en la parte superior (se guarda en la bitácora), elija una carpeta de
 proyecto y cree o abra un registro. El registro es el archivo
 `registry.sqlite` de esa carpeta.
+
+### Analysis and report / Análisis y reporte
+
+The *Analysis* tab gives a descriptive table (optionally by group, with
+p-values), interactive plots and a one-click offline HTML report. The same
+functions work in scripts:
+
+```r
+a <- analysis_prepare(registry_data(reg), reg$dict, "es")
+table_one(a, by = "sex_at_birth")
+plot_variable(a, "hba1c_pct", by = "sex_at_birth")
+registry_report(reg, "reporte.html", lang = "es", by = "sex_at_birth")
+```
+
+Reports need `rmarkdown`, `knitr` and Pandoc (included with RStudio);
+interactive plots need `plotly`. Without them the app still works and says
+what is missing. The p-values are descriptive aids with no adjustment for
+multiple comparisons.
+
+La pestaña *Análisis* ofrece una tabla descriptiva (opcionalmente por grupo,
+con valores p), gráficas interactivas y un reporte HTML sin conexión. Los
+reportes requieren `rmarkdown`, `knitr` y Pandoc (incluido con RStudio); las
+gráficas interactivas, `plotly`. Los valores p son ayudas descriptivas, sin
+ajuste por comparaciones múltiples.
 
 ### Case finding ("cotejo") and privacy / Cotejo y privacidad
 

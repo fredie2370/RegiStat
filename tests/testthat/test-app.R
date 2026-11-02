@@ -197,3 +197,22 @@ test_that("the template covers comorbidities, labs and vitals", {
   sim <- synthetic_t2d(100, seed = 4)
   expect_equal(nrow(validate_data(sim$data, dict)), 0L)
 })
+
+test_that("analysis module builds table and handles an empty registry", {
+  reg <- new_registry()
+  state <- shiny::reactiveValues(reg = reg, tick = 0L, scr = NULL, stick = 0L)
+  shiny::testServer(
+    RegiStat:::analysis_server,
+    args = list(state = state, lang = shiny::reactive("en"),
+                user = shiny::reactive("tester")),
+    {
+      expect_equal(nrow(prep()$data), 0L)
+      registry_import(reg, synthetic_t2d(30, seed = 3)$data, user = "tester")
+      state$tick <- state$tick + 1L
+      expect_equal(nrow(prep()$data), 30L)
+      session$setInputs(by = "")
+      expect_true("Overall (n=30)" %in% names(table_df()))
+      session$setInputs(by = "sex_at_birth")
+      expect_true("p" %in% names(table_df()))
+    })
+})

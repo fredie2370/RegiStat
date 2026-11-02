@@ -126,6 +126,7 @@ app_server <- function(folder, lang0) {
         bslib::nav_panel(ui_text("tab_records", l), records_ui("records")),
         bslib::nav_panel(ui_text("tab_import", l), import_ui("import")),
         bslib::nav_panel(ui_text("tab_audit", l), audit_ui("audit")),
+        bslib::nav_panel(ui_text("tab_analysis", l), analysis_ui("analysis")),
         bslib::nav_panel(ui_text("tab_screening", l), screening_ui("screening")))
     })
 
@@ -133,6 +134,7 @@ app_server <- function(folder, lang0) {
     records_server("records", state, lang, user)
     import_server("import", state, lang, user)
     audit_server("audit", state, lang, user)
+    analysis_server("analysis", state, lang, user)
     screening_server("screening", state, lang, user)
 
     shiny::observeEvent(input$close, {

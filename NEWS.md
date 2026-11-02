@@ -38,3 +38,9 @@
 * `derive_variables()`: BMI and WHO category, eGFR (CKD-EPI 2021) and G stage,
   calculated on demand and never stored. Shown live in the capture form, in
   the records table and in the CSV download.
+* Analysis: `analysis_prepare()`, `table_one()` (overall or by group, with
+  Wilcoxon / Kruskal-Wallis / Fisher / chi-squared tests), `missing_summary()`,
+  `plot_variable()`, `plot_relation()` and `as_interactive()` (plotly).
+* `registry_report()`: self-contained offline HTML report (R Markdown) in
+  Spanish or English with tables, plots and the audit-trail verification.
+* New "Analysis" tab in the app.

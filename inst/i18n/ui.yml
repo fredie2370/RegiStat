@@ -612,3 +612,126 @@ bmi_obesity_2:
 bmi_obesity_3:
   en: "Obesity class 3"
   es: "Obesidad grado 3"
+
+tbl_mean_sd:
+  en: "Mean (SD)"
+  es: "Media (DE)"
+tbl_median_iqr:
+  en: "Median [Q1, Q3]"
+  es: "Mediana [Q1, Q3]"
+tbl_missing:
+  en: "Missing"
+  es: "Faltantes"
+tbl_overall:
+  en: "Overall"
+  es: "Total"
+plot_count:
+  en: "Count"
+  es: "Frecuencia"
+plot_dropped:
+  en: "%d records with missing values are not shown."
+  es: "No se muestran %d registros con valores faltantes."
+
+tbl_variable:
+  en: "Variable"
+  es: "Variable"
+tbl_statistic:
+  en: "Statistic"
+  es: "Estadístico"
+rep_title:
+  en: "Registry report"
+  es: "Reporte del registro"
+rep_study:
+  en: "Study"
+  es: "Estudio"
+rep_n_records:
+  en: "Records"
+  es: "Registros"
+rep_by_label:
+  en: "Groups compared by"
+  es: "Grupos comparados por"
+rep_empty:
+  en: "The registry has no records yet."
+  es: "El registro aún no tiene registros."
+rep_sec_table1:
+  en: "Descriptive table"
+  es: "Tabla descriptiva"
+rep_note_tests:
+  en: "Mean (SD) and median [Q1, Q3] for numeric variables; n (%) of non-missing values for categorical ones. With groups, p-values come from the Wilcoxon rank-sum test (2 groups) or Kruskal-Wallis test (more groups) for numeric variables, and Fisher's exact test (2x2 or small counts) or the chi-squared test for categorical ones. They are descriptive aids, without adjustment for multiple comparisons."
+  es: "Media (DE) y mediana [Q1, Q3] para variables numéricas; n (%) de los valores no faltantes para las categóricas. Con grupos, los valores p provienen de la prueba de suma de rangos de Wilcoxon (2 grupos) o Kruskal-Wallis (más grupos) en variables numéricas, y de la prueba exacta de Fisher (2x2 o frecuencias pequeñas) o ji cuadrada en categóricas. Son ayudas descriptivas, sin ajuste por comparaciones múltiples."
+rep_sec_quality:
+  en: "Missing data"
+  es: "Datos faltantes"
+rep_missing_none:
+  en: "No variable has missing values."
+  es: "Ninguna variable tiene valores faltantes."
+rep_sec_dist:
+  en: "Distributions"
+  es: "Distribuciones"
+rep_sec_repro:
+  en: "Reproducibility"
+  es: "Reproducibilidad"
+rep_generated_with:
+  en: "Generated with RegiStat %s on %s."
+  es: "Generado con RegiStat %s en %s."
+rep_verified:
+  en: "Audit trail verified: %d entries; head hash %s."
+  es: "Bitácora verificada: %d entradas; valor de cierre %s."
+rep_not_verified:
+  en: "WARNING: the audit-trail check found %d problem(s). Do not rely on this report until they are resolved."
+  es: "ADVERTENCIA: la verificación de la bitácora encontró %d problema(s). No confíe en este reporte hasta resolverlos."
+rep_repro_note:
+  en: "The report is computed from the records at the moment it was generated; calculated measures (BMI, eGFR) are derived, not stored."
+  es: "El reporte se calcula con los registros al momento de generarlo; las medidas calculadas (IMC, TFGe) se derivan y no se guardan."
+
+tab_analysis:
+  en: "Analysis"
+  es: "Análisis"
+ana_empty:
+  en: "There are no records to analyse yet."
+  es: "Aún no hay registros para analizar."
+ana_none:
+  en: "(no groups)"
+  es: "(sin grupos)"
+ana_by:
+  en: "Compare groups by"
+  es: "Comparar grupos por"
+ana_sub_table:
+  en: "Descriptive table"
+  es: "Tabla descriptiva"
+ana_sub_plots:
+  en: "Plots"
+  es: "Gráficas"
+ana_sub_report:
+  en: "Report"
+  es: "Reporte"
+ana_distribution:
+  en: "Distribution"
+  es: "Distribución"
+ana_relation:
+  en: "Relationship between two measures"
+  es: "Relación entre dos medidas"
+ana_var:
+  en: "Variable"
+  es: "Variable"
+ana_x:
+  en: "Horizontal axis"
+  es: "Eje horizontal"
+ana_y:
+  en: "Vertical axis"
+  es: "Eje vertical"
+ana_color:
+  en: "Colour by"
+  es: "Color según"
+ana_report_intro:
+  en: "Creates one HTML file with the descriptive table, missing data, the distribution of every variable and the reproducibility details. It works offline and can be opened in any browser or printed to PDF."
+  es: "Crea un archivo HTML con la tabla descriptiva, los datos faltantes, la distribución de cada variable y los detalles de reproducibilidad. Funciona sin conexión y se puede abrir en cualquier navegador o imprimir a PDF."
+ana_report_download:
+  en: "Create and download report"
+  es: "Crear y descargar reporte"
+ana_report_unavailable:
+  en: "Reports need the rmarkdown and knitr packages and Pandoc (included with RStudio). Install them to enable this button."
+  es: "Los reportes necesitan los paquetes rmarkdown y knitr y Pandoc (incluido con RStudio). Instálelos para habilitar este botón."
+ana_working:
+  en: "Creating report... this can take up to a minute."
+  es: "Creando reporte... puede tardar hasta un minuto."

@@ -26,6 +26,7 @@ Imports:
     DBI,
     digest,
     DT,
+    ggplot2,
     jsonlite,
     readxl,
     RSQLite,
@@ -36,6 +37,9 @@ Imports:
     withr,
     yaml
 Suggests:
+    knitr,
+    plotly,
+    rmarkdown,
     testthat (>= 3.0.0),
     writexl
 Config/testthat/edition: 3
