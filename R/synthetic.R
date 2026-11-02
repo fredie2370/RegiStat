@@ -66,6 +66,18 @@ synthetic_clean_t2d <- function(n) {
   ckd <- yes_no(stats::plogis(-3 + 1.5 * (creat - 1)))
   retinopathy <- yes_no(stats::plogis(-3.5 + 0.4 * (hba1c - 7)))
 
+  # Added later; drawn last so that earlier variables keep their values.
+  hr <- as.integer(round(clip(rnorm(n, 78, 11), 45, 130)))
+  rr <- as.integer(round(clip(rnorm(n, 17, 2.5), 10, 35)))
+  chol <- round(clip(rnorm(n, 190, 40), 90, 400))
+  bun <- round(clip(stats::rlnorm(n, log(16), 0.35) * (1 + 0.8 * (creat - 0.95)), 5, 120), 1)
+  urea <- round(bun * 2.14, 1)
+  uric <- round(clip(rnorm(n, 5.8, 1.5), 2, 12), 1)
+  heart_failure <- yes_no(0.08)
+  dialysis <- yes_no(0.02)
+  copd <- yes_no(0.05)
+  amputation <- yes_no(0.03)
+
   data.frame(
     record_id = sprintf("SYN-%04d", seq_len(n)),
     visit_date = as.Date("2024-01-01") + sample(0:365, n, replace = TRUE),
@@ -79,9 +91,21 @@ synthetic_clean_t2d <- function(n) {
     fasting_glucose_mgdl = glucose,
     creatinine_mgdl = creat,
     triglycerides_mgdl = trig,
+    heart_rate_bpm = hr,
+    respiratory_rate_rpm = rr,
+    total_cholesterol_mgdl = chol,
+    bun_mgdl = bun,
+    urea_mgdl = urea,
+    uric_acid_mgdl = uric,
     hypertension = hypertension,
     ckd = ckd,
     retinopathy = retinopathy,
+    heart_failure = heart_failure,
+    dialysis = dialysis,
+    copd = copd,
+    amputation = amputation,
+    other_complications = NA_character_,
+    other_comorbidities = NA_character_,
     stringsAsFactors = FALSE
   )
 }

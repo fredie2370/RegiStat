@@ -107,6 +107,48 @@ variables:
     max: 3000
     label: {en: "Triglycerides", es: "Triglicéridos"}
 
+  - name: heart_rate_bpm
+    type: integer
+    unit: "bpm"
+    min: 30
+    max: 220
+    label: {en: "Heart rate", es: "Frecuencia cardiaca"}
+
+  - name: respiratory_rate_rpm
+    type: integer
+    unit: "breaths/min"
+    min: 6
+    max: 60
+    label: {en: "Respiratory rate", es: "Frecuencia respiratoria"}
+
+  - name: total_cholesterol_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 50
+    max: 600
+    label: {en: "Total cholesterol", es: "Colesterol total"}
+
+  - name: bun_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 2
+    max: 200
+    label: {en: "Blood urea nitrogen (BUN)", es: "Nitrógeno ureico en sangre (BUN)"}
+
+  - name: urea_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 5
+    max: 400
+    label: {en: "Urea", es: "Urea"}
+
+  - name: uric_acid_mgdl
+    type: numeric
+    unit: "mg/dL"
+    min: 1
+    max: 20
+    label: {en: "Uric acid", es: "Ácido úrico"}
+
   - name: hypertension
     type: categorical
     label: {en: "Hypertension", es: "Hipertensión"}
@@ -130,6 +172,52 @@ variables:
       - {value: "yes", label: {en: "Yes", es: "Sí"}}
       - {value: "no", label: {en: "No", es: "No"}}
       - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: heart_failure
+    type: categorical
+    label: {en: "Heart failure", es: "Insuficiencia cardiaca"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: dialysis
+    type: categorical
+    label: {en: "Dialysis", es: "Diálisis"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: copd
+    type: categorical
+    label: {en: "COPD", es: "EPOC"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: amputation
+    type: categorical
+    label: {en: "Amputation (diabetes-related)", es: "Amputación (relacionada con diabetes)"}
+    choices:
+      - {value: "yes", label: {en: "Yes", es: "Sí"}}
+      - {value: "no", label: {en: "No", es: "No"}}
+      - {value: "unknown", label: {en: "Unknown", es: "Desconocido"}}
+
+  - name: other_complications
+    type: text
+    label: {en: "Other complications", es: "Otras complicaciones"}
+    description:
+      en: "Free text. Do not write names or other identifiers."
+      es: "Texto libre. No escriba nombres ni otros identificadores."
+
+  - name: other_comorbidities
+    type: text
+    label: {en: "Other comorbidities", es: "Otras comorbilidades"}
+    description:
+      en: "Free text. Do not write names or other identifiers."
+      es: "Texto libre. No escriba nombres ni otros identificadores."
 
 # Cross-field rules. The expression must be TRUE when the row is valid.
 rules:

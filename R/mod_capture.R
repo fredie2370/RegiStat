@@ -6,6 +6,7 @@ capture_ui <- function(id) {
     shiny::uiOutput(ns("title")),
     shiny::uiOutput(ns("status")),
     shiny::uiOutput(ns("form")),
+    shiny::uiOutput(ns("derived")),
     shiny::uiOutput(ns("buttons"))
   )
 }
@@ -29,6 +30,26 @@ capture_server <- function(id, state, lang, user) {
       shiny::req(state$reg)
       shiny::tags$div(class = "registat-form",
                       form_fields(state$reg$dict, ns, lang()))
+    })
+
+    # Live preview of the calculated measures (never stored).
+    output$derived <- shiny::renderUI({
+      shiny::req(state$reg)
+      l <- lang()
+      vals <- form_values(input, state$reg$dict)
+      d <- derive_variables(as.data.frame(vals, stringsAsFactors = FALSE), l)
+      dl <- derived_labels(l)
+      shown <- intersect(names(dl), names(d))
+      if (length(shown) == 0L) return(NULL)
+      items <- lapply(shown, function(nm) {
+        v <- as.character(d[[nm]])
+        shiny::tags$li(shiny::tags$strong(dl[[nm]]), ": ",
+                       if (is.na(v)) ui_text("scr_unknown", l) else v)
+      })
+      shiny::tags$div(class = "border rounded p-2 mt-3 small",
+                      shiny::tags$div(class = "fw-bold", ui_text("derived_title", l)),
+                      shiny::tags$ul(class = "mb-1", items),
+                      shiny::tags$div(class = "text-muted", ui_text("derived_note", l)))
     })
 
     output$buttons <- shiny::renderUI({

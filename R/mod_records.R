@@ -41,9 +41,13 @@ records_server <- function(id, state, lang, user) {
       d <- data()
       dict <- state$reg$dict
       labs <- var_labels(dict, lang())
-      out <- d
+      out <- derive_variables(d, lang())
       for (nm in variable_names(dict)) out[[nm]] <- as.character(out[[nm]])
       names(out)[match(variable_names(dict), names(out))] <- unname(labs)
+      dl <- derived_labels(lang())
+      hit <- names(out) %in% names(dl)
+      for (nm in names(out)[hit]) out[[nm]] <- as.character(out[[nm]])
+      names(out)[hit] <- unname(dl[names(out)[hit]])
       if (".deleted" %in% names(out)) {
         out$.deleted <- ifelse(d$.deleted, ui_text("answer_yes", lang()),
                                ui_text("answer_no", lang()))
@@ -59,7 +63,7 @@ records_server <- function(id, state, lang, user) {
         paste0("registat-records-", format(Sys.Date(), "%Y-%m-%d"), ".csv")
       },
       content = function(file) {
-        d <- data()
+        d <- derive_variables(data(), lang())
         for (nm in names(d)) d[[nm]] <- as.character(d[[nm]])
         write_csv_excel(d, file)
       })

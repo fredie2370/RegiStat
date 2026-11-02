@@ -575,3 +575,40 @@ audit_list_loaded:
 audit_scr_created:
   en: "Case-finding file created"
   es: "Archivo de cotejo creado"
+
+derived_title:
+  en: "Calculated (not typed)"
+  es: "Calculado (no se captura)"
+derived_note:
+  en: "Calculated from the values above; never stored. eGFR uses CKD-EPI 2021 and needs sex at birth, age and creatinine. The stage uses eGFR only and is not a diagnosis."
+  es: "Se calcula con los valores de arriba y no se guarda. La TFGe usa CKD-EPI 2021 y requiere sexo al nacer, edad y creatinina. El estadio usa solo la TFGe y no es un diagnóstico."
+derived_bmi:
+  en: "BMI (kg/m2)"
+  es: "IMC (kg/m2)"
+derived_bmi_cat:
+  en: "BMI category"
+  es: "Categoría de IMC"
+derived_egfr:
+  en: "eGFR CKD-EPI 2021 (mL/min/1.73 m2)"
+  es: "TFGe CKD-EPI 2021 (mL/min/1.73 m2)"
+derived_stage:
+  en: "eGFR stage (G)"
+  es: "Estadio por TFGe (G)"
+bmi_underweight:
+  en: "Underweight"
+  es: "Bajo peso"
+bmi_normal:
+  en: "Normal weight"
+  es: "Peso normal"
+bmi_overweight:
+  en: "Overweight"
+  es: "Sobrepeso"
+bmi_obesity_1:
+  en: "Obesity class 1"
+  es: "Obesidad grado 1"
+bmi_obesity_2:
+  en: "Obesity class 2"
+  es: "Obesidad grado 2"
+bmi_obesity_3:
+  en: "Obesity class 3"
+  es: "Obesidad grado 3"

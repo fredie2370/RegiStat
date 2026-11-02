@@ -163,3 +163,37 @@ test_that("every interface text used in the code exists", {
   # keys that YAML would read as booleans would not be found by name
   expect_false(any(names(RegiStat:::ui_strings()) %in% c("TRUE", "FALSE")))
 })
+
+test_that("derived measures: BMI, categories and CKD-EPI 2021", {
+  d <- data.frame(
+    sex_at_birth = c("female", "male", "unknown", "female"),
+    age_years = c(60, 45, 50, 70),
+    weight_kg = c(70, 95, 80, 45),
+    height_cm = c(160, 178, 170, 160),
+    creatinine_mgdl = c(0.9, 1.4, 1, 2.5), stringsAsFactors = FALSE)
+  r <- derive_variables(d, "en")
+  expect_equal(r$bmi, c(27.3, 30.0, 27.7, 17.6))
+  expect_equal(as.character(r$bmi_category),
+               c("Overweight", "Obesity class 1", "Overweight", "Underweight"))
+  # reference values of the CKD-EPI 2021 equation
+  expect_equal(r$egfr[1], 73)       # 60 y woman, Scr 0.9 (worked by hand)
+  expect_equal(r$egfr[2], 63)       # 45 y man, Scr 1.4 (worked by hand)
+  expect_true(is.na(r$egfr[3]))     # sex unknown: no equation
+  expect_equal(as.character(r$egfr_stage[c(1, 2)]), c("G2", "G2"))
+  expect_equal(as.character(r$egfr_stage[4]), "G4")
+  expect_equal(as.character(derive_variables(d, "es")$bmi_category[4]), "Bajo peso")
+  # missing columns: nothing is added
+  expect_equal(names(derive_variables(data.frame(a = 1))), "a")
+})
+
+test_that("the template covers comorbidities, labs and vitals", {
+  dict <- load_template("t2d")
+  nm <- variable_names(dict)
+  expect_true(all(c("heart_failure", "dialysis", "copd", "amputation",
+                    "other_complications", "other_comorbidities",
+                    "total_cholesterol_mgdl", "bun_mgdl", "urea_mgdl",
+                    "uric_acid_mgdl", "heart_rate_bpm",
+                    "respiratory_rate_rpm") %in% nm))
+  sim <- synthetic_t2d(100, seed = 4)
+  expect_equal(nrow(validate_data(sim$data, dict)), 0L)
+})

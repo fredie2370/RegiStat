@@ -32,3 +32,9 @@
   `screening_pending()`, `screening_summary()`, `screening_changes()`,
   `screening_audit()` and `screening_verify()` with the same hash-chained
   audit trail.
+* `t2d` template extended: heart failure, dialysis, COPD, amputation, other
+  complications and comorbidities (free text), total cholesterol, BUN, urea,
+  uric acid, heart rate and respiratory rate.
+* `derive_variables()`: BMI and WHO category, eGFR (CKD-EPI 2021) and G stage,
+  calculated on demand and never stored. Shown live in the capture form, in
+  the records table and in the CSV download.
