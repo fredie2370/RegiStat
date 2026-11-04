@@ -1,4 +1,4 @@
-# RegiStat 0.0.0.9000
+# RegiStat 0.1.1
 
 * Initial package skeleton (development version).
 * Metadata-driven data dictionary with Spanish and English labels

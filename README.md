@@ -1,6 +1,6 @@
 # RegiStat
 
-> **Status: pre-alpha (0.0.0.9000).** Early development. The API will change.
+> **Status: pre-alpha (0.1.1).** Early development. The API will change.
 
 **RegiStat** is a free, open-source toolkit for clinical and laboratory
 researchers who need structured data capture and reproducible analysis

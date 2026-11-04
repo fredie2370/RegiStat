@@ -2,7 +2,7 @@ Package: RegiStat
 Type: Package
 Title: Offline Bilingual Data Capture and Reproducible Analysis for Clinical
     Registries
-Version: 0.0.0.9000
+Version: 0.1.1
 Authors@R:
     person("Manuel", "Gutiérrez Rodríguez",
            email = "mgutierrezr_9902@outlook.com",
