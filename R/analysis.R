@@ -16,19 +16,27 @@
 #' @param data A data frame, for example from [registry_data()].
 #' @param dict A `registat_dictionary`.
 #' @param lang `"en"` or `"es"`.
+#' @param egfr_equation `"2021"` (default) or `"2009"`: CKD-EPI equation used
+#'   for the calculated eGFR (see [derive_variables()]).
 #' @return An object of class `registat_analysis`: a list with `data`,
 #'   `types` (named character: `"numeric"` or `"categorical"`), `labels`
-#'   (named character) and `lang`.
+#'   (named character), `codes` (for every categorical variable, its level
+#'   labels named by the stored code), `binary` (for every yes/no variable,
+#'   the labels of its "yes" and "no" levels), `lang` and `egfr_equation`.
 #' @examples
 #' dict <- load_template("t2d")
 #' a <- analysis_prepare(synthetic_t2d(60, seed = 1)$data, dict, "en")
 #' head(names(a$types))
 #' @export
-analysis_prepare <- function(data, dict, lang = c("en", "es")) {
+analysis_prepare <- function(data, dict, lang = c("en", "es"),
+                             egfr_equation = c("2021", "2009")) {
   lang <- match.arg(lang)
-  d <- derive_variables(data, lang)
+  egfr_equation <- match.arg(egfr_equation)
+  d <- derive_variables(data, lang, egfr_equation)
   types <- character()
   labels <- character()
+  codes_list <- list()
+  binary <- list()
   for (v in dict$variables) {
     nm <- v$name
     if (!(nm %in% names(d))) next
@@ -41,17 +49,31 @@ analysis_prepare <- function(data, dict, lang = c("en", "es")) {
                      character(1))
       d[[nm]] <- factor(as.character(d[[nm]]), levels = codes, labels = labs)
       types[nm] <- "categorical"
+      codes_list[[nm]] <- stats::setNames(labs, codes)
+      if (all(c("yes", "no") %in% codes)) {
+        binary[[nm]] <- c(positive = labs[[match("yes", codes)]],
+                          negative = labs[[match("no", codes)]])
+      }
     } else {
       next
     }
     labels[nm] <- v$label[[lang]] %||% v$label[["en"]]
   }
-  dl <- derived_labels(lang)
+  dl <- derived_labels(lang, egfr_equation)
   for (nm in intersect(names(dl), names(d))) {
     types[nm] <- if (is.factor(d[[nm]])) "categorical" else "numeric"
     labels[nm] <- dl[[nm]]
+    if (is.factor(d[[nm]])) {
+      lv <- levels(d[[nm]])
+      codes_list[[nm]] <- stats::setNames(lv, c("no", "yes")[match(lv, lv)])
+      if (grepl("^any_", nm)) {
+        binary[[nm]] <- c(positive = ui_text("answer_yes", lang),
+                          negative = ui_text("answer_no", lang))
+      }
+    }
   }
-  structure(list(data = d, types = types, labels = labels, lang = lang),
+  structure(list(data = d, types = types, labels = labels, codes = codes_list,
+                 binary = binary, lang = lang, egfr_equation = egfr_equation),
             class = "registat_analysis")
 }
 
@@ -90,31 +112,43 @@ fmt_p <- function(p) {
   ifelse(is.na(p), "", ifelse(p < 0.001, "<0.001", formatC(p, format = "f", digits = 3)))
 }
 
+#' P-value comparing groups, with the name of the test (internal)
+#'
+#' `parametric = TRUE` uses Welch's t-test (two groups) or Welch's one-way
+#' ANOVA (more groups) for numeric variables instead of the rank tests. The
+#' name of the test is returned in the `"test"` attribute (an interface-text
+#' key).
 #' @noRd
-group_p_value <- function(x, g, type) {
+group_p_value <- function(x, g, type, parametric = FALSE) {
   ok <- !is.na(x) & !is.na(g)
   x <- x[ok]
   g <- droplevels(g[ok])
-  if (nlevels(g) < 2L || length(x) < 2L) return(NA_real_)
+  tag <- function(p, key) structure(p, test = key)
+  if (nlevels(g) < 2L || length(x) < 2L) return(tag(NA_real_, NA_character_))
   tryCatch({
     if (type == "numeric") {
-      if (nlevels(g) == 2L) stats::wilcox.test(x ~ g, exact = FALSE)$p.value
-      else stats::kruskal.test(x ~ g)$p.value
+      if (nlevels(g) == 2L) {
+        if (parametric) tag(stats::t.test(x ~ g)$p.value, "test_welch")
+        else tag(stats::wilcox.test(x ~ g, exact = FALSE)$p.value, "test_wilcoxon")
+      } else {
+        if (parametric) tag(stats::oneway.test(x ~ g)$p.value, "test_anova")
+        else tag(stats::kruskal.test(x ~ g)$p.value, "test_kruskal")
+      }
     } else {
       tab <- table(droplevels(x), g)
-      if (nrow(tab) < 2L || ncol(tab) < 2L) return(NA_real_)
+      if (nrow(tab) < 2L || ncol(tab) < 2L) return(tag(NA_real_, NA_character_))
       small <- any(suppressWarnings(stats::chisq.test(tab)$expected) < 5)
       if ((nrow(tab) == 2L && ncol(tab) == 2L) || small) {
-        tryCatch(stats::fisher.test(tab)$p.value,
+        tryCatch(tag(stats::fisher.test(tab)$p.value, "test_fisher"),
                  error = function(e) {
-                   withr::with_seed(1L, stats::chisq.test(
-                     tab, simulate.p.value = TRUE, B = 5000L)$p.value)
+                   tag(withr::with_seed(1L, stats::chisq.test(
+                     tab, simulate.p.value = TRUE, B = 5000L)$p.value), "test_chisq_sim")
                  })
       } else {
-        stats::chisq.test(tab)$p.value
+        tag(stats::chisq.test(tab)$p.value, "test_chisq")
       }
     }
-  }, error = function(e) NA_real_)
+  }, error = function(e) tag(NA_real_, NA_character_))
 }
 
 #' Descriptive table ("Table 1")
@@ -131,20 +165,32 @@ group_p_value <- function(x, g, type) {
 #' aids: no adjustment for multiple comparisons is made, and they do not
 #' replace a planned analysis.
 #'
+#' With `style = "auto"` each numeric variable gets one row instead of two:
+#' mean (SD) when the Shapiro-Wilk test does not reject normality (p above
+#' 0.05, on all non-missing values) and median \[Q1, Q3\] otherwise. The
+#' groups are then compared with Welch's t-test (two groups) or Welch's
+#' one-way ANOVA (more groups) for approximately normal variables, and with
+#' the rank tests above for the others; a `test` column names the test used
+#' in each row.
+#'
 #' @param a An object from [analysis_prepare()].
 #' @param by Name of a categorical variable to compare groups, or `NULL`.
 #' @param vars Variables to include (default: all analysis variables except
 #'   `by`).
 #' @param digits Decimals for numeric summaries.
+#' @param style `"both"` (default: mean (SD) and median \[Q1, Q3\] rows) or
+#'   `"auto"` (one row chosen by normality, see Details).
 #' @return A data frame with `variable`, `label`, `statistic`, `Overall`, one
-#'   column per group and `p` (only when `by` is given).
+#'   column per group and `p` (only when `by` is given), plus `test` when
+#'   `style = "auto"` and `by` is given.
 #' @examples
 #' dict <- load_template("t2d")
 #' a <- analysis_prepare(synthetic_t2d(80, seed = 1)$data, dict, "en")
 #' table_one(a, by = "sex_at_birth", vars = c("age_years", "hypertension"))
 #' @export
-table_one <- function(a, by = NULL, vars = NULL, digits = 1L) {
+table_one <- function(a, by = NULL, vars = NULL, digits = 1L, style = c("both", "auto")) {
   check_analysis(a)
+  style <- match.arg(style)
   lang <- a$lang
   d <- a$data
   if (!is.null(by)) check_var(a, by, "categorical")
@@ -166,30 +212,41 @@ table_one <- function(a, by = NULL, vars = NULL, digits = 1L) {
     r <- data.frame(variable = v, label = a$labels[[v]], statistic = stat,
                     stringsAsFactors = FALSE)
     for (k in names(values)) r[[k]] <- values[[k]]
-    if (!is.null(by)) r$p <- p
+    if (!is.null(by)) {
+      key <- attr(p, "test")
+      r$p <- as.numeric(p)
+      if (style == "auto") {
+        r$test <- if (is.null(key) || is.na(key) || is.na(p)) "" else ui_text(key, lang)
+      }
+    }
     rows[[length(rows) + 1L]] <<- r
   }
   na_stat <- ui_text("tbl_missing", lang)
 
   for (v in vars) {
     x <- d[[v]]
-    p <- if (is.null(by)) NA_real_ else group_p_value(x, g, a$types[[v]])
+    normal <- a$types[[v]] == "numeric" && style == "auto" && isTRUE(normal_flag(x))
+    p <- if (is.null(by)) NA_real_ else group_p_value(x, g, a$types[[v]], parametric = normal)
     miss <- cols(function(idx) sum(is.na(x[idx])))
     if (a$types[[v]] == "numeric") {
-      add(v, ui_text("tbl_mean_sd", lang), cols(function(idx) {
+      mean_row <- function() add(v, ui_text("tbl_mean_sd", lang), cols(function(idx) {
         y <- x[idx & !is.na(x)]
         if (length(y) == 0L) "" else
           sprintf("%s (%s)", fmt_num(mean(y), digits),
                   if (length(y) > 1L) fmt_num(stats::sd(y), digits) else "")
       }), p)
-      add(v, ui_text("tbl_median_iqr", lang), cols(function(idx) {
+      median_row <- function(pv) add(v, ui_text("tbl_median_iqr", lang), cols(function(idx) {
         y <- x[idx & !is.na(x)]
         if (length(y) == 0L) "" else {
           q <- stats::quantile(y, c(0.25, 0.5, 0.75), names = FALSE, type = 7)
           sprintf("%s [%s, %s]", fmt_num(q[2], digits), fmt_num(q[1], digits),
                   fmt_num(q[3], digits))
         }
-      }))
+      }), pv)
+      if (style == "both") {
+        mean_row()
+        median_row(NA_real_)
+      } else if (normal) mean_row() else median_row(p)
     } else {
       for (lv in levels(x)) {
         add(v, lv, cols(function(idx) {
@@ -207,7 +264,10 @@ table_one <- function(a, by = NULL, vars = NULL, digits = 1L) {
   for (lv in groups) {
     names(out)[names(out) == lv] <- paste(lv, head_n(!is.na(g) & g == lv))
   }
-  if (!is.null(by)) out$p <- fmt_p(out$p)
+  if (!is.null(by)) {
+    out$p <- fmt_p(out$p)
+    if (style == "auto") out <- out[, c(setdiff(names(out), "test"), "test"), drop = FALSE]
+  }
   rownames(out) <- NULL
   out
 }
@@ -301,16 +361,22 @@ plot_variable <- function(a, var, by = NULL) {
 
 #' Scatter plot of two numeric variables
 #'
-#' Points with a linear trend line, optionally coloured by a categorical
-#' variable. The line is a descriptive aid, not a fitted model report.
+#' Points with a trend line, optionally coloured by a categorical variable.
+#' The line is a descriptive aid, not a fitted model report. With
+#' `smooth = "lm"` (default) a straight line is drawn per colour group; with
+#' `smooth = "loess"` one dashed local-regression curve with its band is
+#' drawn through all the points. The caption gives Spearman's correlation
+#' coefficient of the plotted pairs.
 #'
 #' @param a An object from [analysis_prepare()].
 #' @param x,y Numeric variables.
 #' @param color Optional categorical variable.
+#' @param smooth `"lm"` (default) or `"loess"`.
 #' @return A `ggplot` object.
 #' @export
-plot_relation <- function(a, x, y, color = NULL) {
+plot_relation <- function(a, x, y, color = NULL, smooth = c("lm", "loess")) {
   check_analysis(a)
+  smooth <- match.arg(smooth)
   check_var(a, x, "numeric")
   check_var(a, y, "numeric")
   if (!is.null(color)) check_var(a, color, "categorical")
@@ -319,23 +385,39 @@ plot_relation <- function(a, x, y, color = NULL) {
     (is.null(color) | !is.na(if (is.null(color)) TRUE else d[[color]]))
   n_drop <- sum(!keep)
   d <- d[keep, , drop = FALSE]
+  use_loess <- smooth == "loess" && nrow(d) >= 10L
+  rho <- if (nrow(d) >= 3L) suppressWarnings(
+    stats::cor(d[[x]], d[[y]], method = "spearman")) else NA_real_
+  cap <- c(if (!is.na(rho)) ui_text("plot_spearman", a$lang, formatC(rho, format = "f", digits = 3)),
+           if (n_drop > 0L) ui_text("plot_dropped", a$lang, n_drop))
+  line <- function(...) {
+    if (use_loess) {
+      ggplot2::geom_smooth(ggplot2::aes(x = .data[[x]], y = .data[[y]]), inherit.aes = FALSE,
+                           method = "loess", formula = y ~ x, se = TRUE, colour = "gray30",
+                           fill = "gray30", alpha = 0.15, linewidth = 0.8, linetype = "dashed")
+    } else {
+      NULL
+    }
+  }
   p <- if (is.null(color)) {
     ggplot2::ggplot(d, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
       ggplot2::geom_point(alpha = 0.6, colour = .palette[1L]) +
-      ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = TRUE,
-                           colour = .palette[2L], fill = .palette[2L], alpha = 0.15)
+      (if (use_loess) line() else
+        ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = TRUE,
+                             colour = .palette[2L], fill = .palette[2L], alpha = 0.15))
   } else {
     ggplot2::ggplot(d, ggplot2::aes(x = .data[[x]], y = .data[[y]],
                                     colour = .data[[color]], fill = .data[[color]])) +
       ggplot2::geom_point(alpha = 0.6) +
-      ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+      (if (use_loess) line() else
+        ggplot2::geom_smooth(method = "lm", formula = y ~ x, se = FALSE))
   }
   p + ggplot2::scale_colour_manual(values = .palette, drop = FALSE) +
     ggplot2::scale_fill_manual(values = .palette, drop = FALSE) +
     ggplot2::labs(x = a$labels[[x]], y = a$labels[[y]],
                   colour = if (!is.null(color)) a$labels[[color]],
                   fill = if (!is.null(color)) a$labels[[color]],
-                  caption = if (n_drop > 0L) ui_text("plot_dropped", a$lang, n_drop)) +
+                  caption = if (length(cap)) paste(cap, collapse = "  |  ")) +
     plot_theme()
 }
 

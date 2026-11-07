@@ -77,6 +77,9 @@ synthetic_clean_t2d <- function(n) {
   dialysis <- yes_no(0.02)
   copd <- yes_no(0.05)
   amputation <- yes_no(0.03)
+  # Drawn after everything else so that earlier variables keep their values.
+  hb <- round(clip(rnorm(n, 13.4 - 1.1 * (creat - 0.95) - 0.8 * (sex == "female"),
+                         1.5), 6, 19), 1)
 
   data.frame(
     record_id = sprintf("SYN-%04d", seq_len(n)),
@@ -97,6 +100,7 @@ synthetic_clean_t2d <- function(n) {
     bun_mgdl = bun,
     urea_mgdl = urea,
     uric_acid_mgdl = uric,
+    hemoglobin_gdl = hb,
     hypertension = hypertension,
     ckd = ckd,
     retinopathy = retinopathy,
@@ -109,6 +113,127 @@ synthetic_clean_t2d <- function(n) {
     stringsAsFactors = FALSE
   )
 }
+
+#' Hypothetical type 2 diabetes cohort with clinical associations
+#'
+#' Creates a fully synthetic cohort that matches the `t2d` template, meant for
+#' trying the statistical modules (regression, ROC curves, bivariate tests)
+#' and for examples. Unlike [synthetic_t2d()], the complications are linked
+#' to the other variables the way they usually are in a hospital cohort:
+#' chronic kidney disease raises creatinine, urea, uric acid and blood
+#' pressure and lowers haemoglobin; dialysis happens almost only in patients
+#' with chronic kidney disease; retinopathy follows HbA1c and age; and so on.
+#' The prevalences (for example hypertension about 75% and chronic kidney
+#' disease about 50%) are those of a hospital series, so that every analysis
+#' has enough events. The values describe no real person and the
+#' associations are set by the generator, not discovered, so they must not be
+#' read as clinical findings. Identifiers start with `DEMO-`. A few values
+#' are left missing on purpose, as in real data.
+#'
+#' @param n Number of patients (at least 20).
+#' @param seed Integer seed for reproducibility. The global random seed is
+#'   left untouched.
+#' @return A data frame with the columns of the `t2d` template.
+#' @examples
+#' d <- demo_t2d(60, seed = 1)
+#' table(d$ckd)
+#' @export
+demo_t2d <- function(n = 228L, seed = 2026L) {
+  n <- as.integer(n)
+  if (length(n) != 1L || is.na(n) || n < 20L) {
+    abort("'n' must be a whole number of at least 20.")
+  }
+  withr::with_seed(seed, demo_clean_t2d(n))
+}
+
+#' @noRd
+demo_clean_t2d <- function(n) {
+  clip <- function(x, lo, hi) pmin(pmax(x, lo), hi)
+  rnorm <- stats::rnorm
+  runif <- stats::runif
+  plogis <- stats::plogis
+  yn <- function(p) ifelse(runif(n) < p, "yes", "no")
+  hole <- function(x, p) { x[runif(n) < p] <- NA; x }
+
+  female <- runif(n) < 0.62
+  sex <- ifelse(female, "female", "male")
+  age <- as.integer(round(clip(rnorm(n, 58, 11), 25, 90)))
+  height <- round(clip(rnorm(n, ifelse(female, 156, 168), 6.5), 135, 195), 1)
+  bmi <- clip(rnorm(n, 28.5, 5), 17, 52)
+  weight <- round(clip(bmi * (height / 100)^2, 35, 220), 1)
+  hba1c <- round(clip(rnorm(n, 8.3, 1.8), 5.2, 14), 1)
+  glucose <- round(clip(28.7 * hba1c - 46.7 + rnorm(n, 0, 28), 60, 520))
+
+  ckd_p <- plogis(-0.4 + 0.035 * (age - 58) + 0.015 * (hba1c - 8) * 6 / 6)
+  ckd <- runif(n) < ckd_p * 1.05
+  ckd_flag <- ifelse(ckd, 1, 0)
+  hypertension <- yn(plogis(0.2 + 0.035 * (age - 58) + 0.9 * ckd_flag + 0.5 * (!female)))
+  htn <- hypertension == "yes"
+  sys <- as.integer(round(clip(rnorm(n, 122 + 8 * htn + 6 * ckd_flag + 0.2 * (age - 58), 15), 90, 210)))
+  dia <- as.integer(round(clip(rnorm(n, 76 + 3 * htn, 8), 50, 115)))
+  dia <- pmin(dia, sys - 10L)
+
+  creat <- round(clip(stats::rlnorm(n, log(0.82) + ifelse(ckd, 0.78, 0) + 0.12 * (!female),
+                                    ifelse(ckd, 0.55, 0.22)), 0.4, 14), 2)
+  bun <- round(clip(stats::rlnorm(n, log(14) + 0.9 * log(creat / 0.9) * 0.9, 0.28), 5, 150), 1)
+  urea <- round(bun * 2.14, 1)
+  uric <- round(clip(rnorm(n, 5.2 + 1.25 * ckd_flag + 0.4 * (!female), 1.5), 2, 13), 1)
+  hb <- round(clip(rnorm(n, 13.6 - 2.3 * ckd_flag - 0.9 * female - 0.35 * (creat - 1) * ckd_flag, 1.4), 5.5, 18.5), 1)
+  trig <- round(clip(stats::rlnorm(n, log(185) + 0.0015 * (glucose - 150), 0.42), 45, 1300))
+  chol <- round(clip(rnorm(n, 185 + 0.02 * (trig - 185), 38), 90, 380))
+  hr <- as.integer(round(clip(rnorm(n, 78, 10), 45, 130)))
+  rr <- as.integer(round(clip(rnorm(n, 17, 2.2), 10, 32)))
+
+  dialysis <- ifelse(ckd, yn(0.55), yn(0.01))
+  retinopathy <- yn(plogis(-2.75 + 0.45 * (hba1c - 8) + 0.03 * (age - 58) + 0.5 * ckd_flag))
+  amputation <- yn(plogis(-3.6 + 0.04 * (age - 58) + 1.1 * ckd_flag + 0.2 * (hba1c - 8)))
+  heart_failure <- yn(plogis(-3.5 + 0.04 * (age - 58) + 0.8 * htn + 0.7 * ckd_flag))
+  copd <- yn(plogis(-2.2 + 0.03 * (age - 58) + 0.5 * (!female)))
+
+  other_c <- rep(NA_character_, n)
+  idx <- sample.int(n, max(1L, round(n * 0.02)))
+  other_c[idx] <- sample(c("Peripheral neuropathy", "Diabetic foot ulcer", "Gastroparesis"),
+                         length(idx), replace = TRUE)
+  other_m <- rep(NA_character_, n)
+  idx <- sample.int(n, max(1L, round(n * 0.03)))
+  other_m[idx] <- sample(c("Hypothyroidism", "Dyslipidaemia", "Osteoarthritis"),
+                         length(idx), replace = TRUE)
+
+  data.frame(
+    record_id = sprintf("DEMO-%04d", seq_len(n)),
+    visit_date = as.Date("2024-01-02") + sample(0:180, n, replace = TRUE),
+    sex_at_birth = sex,
+    age_years = age,
+    weight_kg = weight,
+    height_cm = height,
+    systolic_bp_mmhg = sys,
+    diastolic_bp_mmhg = dia,
+    hba1c_pct = hba1c,
+    fasting_glucose_mgdl = glucose,
+    creatinine_mgdl = creat,
+    triglycerides_mgdl = hole(trig, 0.02),
+    heart_rate_bpm = hole(hr, 0.02),
+    respiratory_rate_rpm = hole(rr, 0.04),
+    total_cholesterol_mgdl = hole(chol, 0.04),
+    bun_mgdl = hole(bun, 0.04),
+    urea_mgdl = hole(urea, 0.04),
+    uric_acid_mgdl = hole(uric, 0.05),
+    hemoglobin_gdl = hole(hb, 0.02),
+    hypertension = hypertension,
+    ckd = ckd_to(ckd),
+    retinopathy = retinopathy,
+    heart_failure = heart_failure,
+    dialysis = dialysis,
+    copd = copd,
+    amputation = amputation,
+    other_complications = other_c,
+    other_comorbidities = other_m,
+    stringsAsFactors = FALSE
+  )
+}
+
+#' @noRd
+ckd_to <- function(x) ifelse(x, "yes", "no")
 
 #' @noRd
 inject_errors <- function(d, error_rate) {

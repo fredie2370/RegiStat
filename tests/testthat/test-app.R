@@ -216,3 +216,41 @@ test_that("analysis module builds table and handles an empty registry", {
       expect_true("p" %in% names(table_df()))
     })
 })
+
+test_that("analysis module runs comparisons, regression and ROC without errors", {
+  reg <- new_registry()
+  registry_import(reg, synthetic_t2d(250, seed = 2)$data, user = "tester")
+  state <- shiny::reactiveValues(reg = reg, tick = 0L, scr = NULL, stick = 0L)
+  shiny::testServer(
+    RegiStat:::analysis_server,
+    args = list(state = state, lang = shiny::reactive("es"),
+                user = shiny::reactive("tester")),
+    {
+      session$setInputs(by = "sex_at_birth", bv_out = "hypertension", bv_stat = "median",
+                        norm_var = "age_years", cor_vars = c("age_years", "hba1c_pct",
+                                                              "fasting_glucose_mgdl"),
+                        cor_method = "spearman")
+      expect_false(is.null(output$prev))
+      expect_false(is.null(output$cont))
+      expect_false(is.null(output$cat))
+      expect_false(is.null(output$corr))
+      expect_false(is.null(output$fig_cor))
+      expect_false(is.null(output$fig_norm))
+
+      session$setInputs(rg_out = c("hypertension", "copd"),
+                        rg_pred = c("age_years", "sex_at_birth", "hba1c_pct"),
+                        rg_sel = "none", rg_run = 1L)
+      expect_s3_class(rg_first(), "registat_model")
+      expect_false(is.null(output$rg_fit))
+      expect_false(is.null(output$rg_or))
+      expect_false(is.null(output$fig_forest))
+
+      session$setInputs(rc_out = c("hypertension", "copd"),
+                        rc_bio = c("hba1c_pct", "creatinine_mgdl"), rc_run = 1L,
+                        rc_show = "hypertension")
+      expect_s3_class(rc(), "registat_roc_table")
+      expect_false(is.null(output$rc_tab))
+      expect_false(is.null(output$fig_heat))
+      expect_false(is.null(output$fig_roc))
+    })
+})

@@ -26,3 +26,6 @@ secrets/
 Thumbs.db
 .vscode/
 .idea/
+
+# Stray plot output from running tests
+Rplots.pdf

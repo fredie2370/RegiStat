@@ -4,7 +4,7 @@
 \alias{plot_relation}
 \title{Scatter plot of two numeric variables}
 \usage{
-plot_relation(a, x, y, color = NULL)
+plot_relation(a, x, y, color = NULL, smooth = c("lm", "loess"))
 }
 \arguments{
 \item{a}{An object from \code{\link[=analysis_prepare]{analysis_prepare()}}.}
@@ -12,11 +12,17 @@ plot_relation(a, x, y, color = NULL)
 \item{x, y}{Numeric variables.}
 
 \item{color}{Optional categorical variable.}
+
+\item{smooth}{\code{"lm"} (default) or \code{"loess"}.}
 }
 \value{
 A \code{ggplot} object.
 }
 \description{
-Points with a linear trend line, optionally coloured by a categorical
-variable. The line is a descriptive aid, not a fitted model report.
+Points with a trend line, optionally coloured by a categorical variable.
+The line is a descriptive aid, not a fitted model report. With
+\code{smooth = "lm"} (default) a straight line is drawn per colour group; with
+\code{smooth = "loess"} one dashed local-regression curve with its band is
+drawn through all the points. The caption gives Spearman's correlation
+coefficient of the plotted pairs.
 }

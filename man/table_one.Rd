@@ -4,7 +4,7 @@
 \alias{table_one}
 \title{Descriptive table ("Table 1")}
 \usage{
-table_one(a, by = NULL, vars = NULL, digits = 1L)
+table_one(a, by = NULL, vars = NULL, digits = 1L, style = c("both", "auto"))
 }
 \arguments{
 \item{a}{An object from \code{\link[=analysis_prepare]{analysis_prepare()}}.}
@@ -15,10 +15,14 @@ table_one(a, by = NULL, vars = NULL, digits = 1L)
 \code{by}).}
 
 \item{digits}{Decimals for numeric summaries.}
+
+\item{style}{\code{"both"} (default: mean (SD) and median [Q1, Q3] rows) or
+\code{"auto"} (one row chosen by normality, see Details).}
 }
 \value{
 A data frame with \code{variable}, \code{label}, \code{statistic}, \code{Overall}, one
-column per group and \code{p} (only when \code{by} is given).
+column per group and \code{p} (only when \code{by} is given), plus \code{test} when
+\code{style = "auto"} and \code{by} is given.
 }
 \description{
 Summarises each variable overall and, optionally, by the levels of a
@@ -33,6 +37,14 @@ Fisher's exact test for 2x2 tables or small expected counts, otherwise the
 chi-squared test, for categorical variables. These p-values are descriptive
 aids: no adjustment for multiple comparisons is made, and they do not
 replace a planned analysis.
+
+With \code{style = "auto"} each numeric variable gets one row instead of two:
+mean (SD) when the Shapiro-Wilk test does not reject normality (p above
+0.05, on all non-missing values) and median [Q1, Q3] otherwise. The
+groups are then compared with Welch's t-test (two groups) or Welch's
+one-way ANOVA (more groups) for approximately normal variables, and with
+the rank tests above for the others; a \code{test} column names the test used
+in each row.
 }
 \examples{
 dict <- load_template("t2d")

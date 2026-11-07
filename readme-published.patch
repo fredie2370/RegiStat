@@ -1,0 +1,29 @@
+diff --git a/README.md b/README.md
+index 13fc5cc..72e4153 100644
+--- a/README.md
++++ b/README.md
+@@ -30,11 +30,21 @@ para cualquier nivel de recursos.
+ 
+ ## Installation / Instalación
+ 
+-The repository is planned at <https://github.com/fredie2370/RegiStat>
+-(not yet published). Until then, install from a local copy:
++Source code: <https://github.com/fredie2370/RegiStat>. Pre-alpha: it is not
++on CRAN. Download or clone the repository and install from the folder that
++contains the `DESCRIPTION` file.
++
++Código fuente: <https://github.com/fredie2370/RegiStat>. Fase pre-alfa: no
++está en CRAN. Descargue o clone el repositorio e instale desde la carpeta que
++contiene el archivo `DESCRIPTION`.
+ 
+ ```r
+-install.packages(c("yaml", "withr", "testthat"))
++# Dependencies / Dependencias
++install.packages(c("shiny", "bslib", "DT", "DBI", "RSQLite", "digest",
++                   "jsonlite", "readxl", "withr", "yaml", "ggplot2"))
++# Optional: reports, interactive plots / Opcional: reportes, gráficas interactivas
++install.packages(c("rmarkdown", "knitr", "plotly"))
++
+ install.packages("path/to/RegiStat", repos = NULL, type = "source")
+ ```
+ 

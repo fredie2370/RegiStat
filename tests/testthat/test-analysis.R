@@ -55,14 +55,14 @@ test_that("group tests are the documented ones", {
   set.seed(1)
   x <- c(rnorm(30, 0), rnorm(30, 1))
   gr <- factor(rep(c("a", "b"), each = 30))
-  expect_equal(RegiStat:::group_p_value(x, gr, "numeric"),
+  expect_equal(as.numeric(RegiStat:::group_p_value(x, gr, "numeric")),
                stats::wilcox.test(x ~ gr, exact = FALSE)$p.value)
   g3 <- factor(rep(c("a", "b", "c"), each = 20))
-  expect_equal(RegiStat:::group_p_value(x, g3, "numeric"),
+  expect_equal(as.numeric(RegiStat:::group_p_value(x, g3, "numeric")),
                stats::kruskal.test(x ~ g3)$p.value)
   f <- factor(c(rep("y", 8), rep("n", 2), rep("y", 3), rep("n", 7)))
   g <- factor(rep(c("a", "b"), c(10, 10)))
-  expect_equal(RegiStat:::group_p_value(f, g, "categorical"),
+  expect_equal(as.numeric(RegiStat:::group_p_value(f, g, "categorical")),
                stats::fisher.test(table(f, g))$p.value)
   expect_true(is.na(RegiStat:::group_p_value(f, factor(rep("a", 20)), "categorical")))
   expect_equal(RegiStat:::fmt_p(c(0.0004, 0.0456, NA)), c("<0.001", "0.046", ""))
@@ -134,4 +134,53 @@ test_that("registry_report renders a self-contained HTML report", {
   out2 <- withr::local_tempfile(fileext = ".html")
   registry_report(empty, out2, lang = "en")
   expect_match(paste(readLines(out2, warn = FALSE), collapse = "\n"), "no records yet")
+})
+
+test_that("the report includes comparisons, regression, ROC and the methods", {
+  skip_if_not_installed("rmarkdown")
+  skip_if_not(rmarkdown::pandoc_available(), "Pandoc not available")
+  reg <- new_registry()
+  registry_import(reg, synthetic_t2d(250, seed = 2)$data, user = "tester")
+  out <- withr::local_tempfile(fileext = ".html")
+  registry_report(reg, out, lang = "es", by = "sex_at_birth",
+                  outcomes = c("hypertension", "copd"))
+  html <- paste(readLines(out, encoding = "UTF-8", warn = FALSE), collapse = "\n")
+  html <- gsub("base64,[A-Za-z0-9+/=]+", "", html)
+  for (h in c("Prevalencia", "Comparaciones con un desenlace", "Correlaciones",
+              "Regresión logística", "Análisis ROC de biomarcadores",
+              "Métodos estadísticos", "Hipertensión")) {
+    expect_match(html, h, fixed = TRUE)
+  }
+  expect_false(grepl("<U+", html, fixed = TRUE))
+  expect_false(grepl("&lt;U+", html, fixed = TRUE))
+  expect_false(grepl("(src|href)=[\"']https?://", html))
+  expect_error(registry_report(reg, out, outcomes = "age_years"), "categorical")
+})
+
+test_that("html_ascii writes non-ASCII characters as entities", {
+  expect_identical(html_ascii("abc"), "abc")
+  expect_identical(html_ascii(intToUtf8(c(72, 243))), "H&#243;")
+  expect_identical(html_ascii(NA_character_), "")
+})
+
+test_that("default variable sets only contain variables that exist", {
+  a <- analysis_prepare(synthetic_t2d(250, seed = 2)$data, load_template("t2d"), "en")
+  expect_true(all(default_predictors(a) %in% names(a$types)))
+  expect_true(all(default_biomarkers(a) %in% names(a$types)[a$types == "numeric"]))
+  o <- default_outcomes(a)
+  expect_true(all(o %in% names(a$binary)))
+  expect_false(any(o %in% aggregate_vars()))
+  small <- analysis_prepare(synthetic_t2d(20, seed = 2)$data, load_template("t2d"), "en")
+  expect_lte(length(default_outcomes(small)), length(o))
+})
+
+test_that("result tables get translated column names and readable numbers", {
+  df <- data.frame(label = "x", n = 3L, auc = 0.5557, p_value = 0.0004, cutoff = 4.123,
+                   stringsAsFactors = FALSE)
+  shown <- pretty_names(show_numbers(df), "es")
+  expect_identical(names(shown)[2], "n")
+  expect_identical(shown$AUC, "0.556")
+  expect_identical(shown$p, "<0.001")
+  expect_identical(shown$`Punto de corte`, "4.12")
+  expect_identical(names(pretty_names(df, "en"))[1], "Variable")
 })

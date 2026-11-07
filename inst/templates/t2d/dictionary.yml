@@ -149,6 +149,13 @@ variables:
     max: 20
     label: {en: "Uric acid", es: "Ácido úrico"}
 
+  - name: hemoglobin_gdl
+    type: numeric
+    unit: "g/dL"
+    min: 3
+    max: 25
+    label: {en: "Hemoglobin", es: "Hemoglobina"}
+
   - name: hypertension
     type: categorical
     label: {en: "Hypertension", es: "Hipertensión"}

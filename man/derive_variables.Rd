@@ -4,12 +4,14 @@
 \alias{derive_variables}
 \title{Add calculated measures to registry data}
 \usage{
-derive_variables(data, lang = c("en", "es"))
+derive_variables(data, lang = c("en", "es"), egfr_equation = c("2021", "2009"))
 }
 \arguments{
 \item{data}{A data frame, for example from \code{\link[=registry_data]{registry_data()}}.}
 
 \item{lang}{\code{"en"} or \code{"es"}: language of the category labels.}
+
+\item{egfr_equation}{\code{"2021"} (default) or \code{"2009"}.}
 }
 \value{
 \code{data} with the calculated columns appended. Categories are
@@ -23,14 +25,23 @@ Adds, when the needed columns exist:
 \item \code{bmi}: weight (kg) / height (m)^2, from \code{weight_kg} and \code{height_cm}.
 \item \code{bmi_category}: WHO categories (underweight < 18.5, normal, overweight
 25 to < 30, obesity class 1, 2 and 3 from 30, 35 and 40).
-\item \code{egfr}: estimated glomerular filtration rate in mL/min/1.73 m^2 with the
-CKD-EPI 2021 creatinine equation (race-free), from \code{creatinine_mgdl},
-\code{age_years} and \code{sex_at_birth}. It is \code{NA} unless sex at birth is
-\code{"female"} or \code{"male"}, because the equation has no term for other
-values.
+\item \code{egfr}: estimated glomerular filtration rate in mL/min/1.73 m^2, from
+\code{creatinine_mgdl}, \code{age_years} and \code{sex_at_birth}. The default is the
+CKD-EPI 2021 creatinine equation (race-free); \code{egfr_equation = "2009"}
+gives the CKD-EPI 2009 equation without the race coefficient. It is
+\code{NA} unless sex at birth is \code{"female"} or \code{"male"}, because the
+equations have no term for other values.
 \item \code{egfr_stage}: KDIGO stage G1 to G5 by eGFR alone. This is \strong{not} a
 diagnosis of chronic kidney disease, which also needs persistence over
 three months and markers such as albuminuria.
+\item \code{tyg}: triglyceride-glucose index, ln(triglycerides x glucose / 2), from
+\code{triglycerides_mgdl} and \code{fasting_glucose_mgdl}.
+\item \code{n_complications}, \code{any_complication}: number of "yes" answers among
+retinopathy, heart failure, chronic kidney disease, dialysis and
+amputation, and whether there is at least one. Unanswered items count
+as absent.
+\item \code{n_comorbidities}, \code{any_comorbidity}: the same for hypertension and COPD.
+\item \code{n_comp_comorb}, \code{any_comp_comorb}: the same for all seven.
 }
 
 These values are calculated on demand and never stored. The equation is

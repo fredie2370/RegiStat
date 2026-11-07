@@ -4,7 +4,12 @@
 \alias{analysis_prepare}
 \title{Prepare registry data for analysis}
 \usage{
-analysis_prepare(data, dict, lang = c("en", "es"))
+analysis_prepare(
+  data,
+  dict,
+  lang = c("en", "es"),
+  egfr_equation = c("2021", "2009")
+)
 }
 \arguments{
 \item{data}{A data frame, for example from \code{\link[=registry_data]{registry_data()}}.}
@@ -12,11 +17,16 @@ analysis_prepare(data, dict, lang = c("en", "es"))
 \item{dict}{A \code{registat_dictionary}.}
 
 \item{lang}{\code{"en"} or \code{"es"}.}
+
+\item{egfr_equation}{\code{"2021"} (default) or \code{"2009"}: CKD-EPI equation used
+for the calculated eGFR (see \code{\link[=derive_variables]{derive_variables()}}).}
 }
 \value{
 An object of class \code{registat_analysis}: a list with \code{data},
 \code{types} (named character: \code{"numeric"} or \code{"categorical"}), \code{labels}
-(named character) and \code{lang}.
+(named character), \code{codes} (for every categorical variable, its level
+labels named by the stored code), \code{binary} (for every yes/no variable,
+the labels of its "yes" and "no" levels), \code{lang} and \code{egfr_equation}.
 }
 \description{
 Adds the calculated measures (\code{\link[=derive_variables]{derive_variables()}}), turns categorical

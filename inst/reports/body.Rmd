@@ -23,6 +23,20 @@ if (nrow(m) == 0L) {
 }
 ```
 
+```{r outliers, results='asis'}
+o <- outlier_summary(a)
+o <- o[o$n_outliers > 0L, c("label", "n_outliers", "lower", "upper", "values"), drop = FALSE]
+if (nrow(o) > 0L) {
+  o$lower <- fmt_num(o$lower, 1L)
+  o$upper <- fmt_num(o$upper, 1L)
+  names(o) <- c(tx("tbl_variable"), tx("col_n_outliers"), tx("col_lower"), tx("col_upper"),
+                tx("col_values"))
+  knitr::asis_output(paste0("\n\n<h3>", html_escape(tx("ana_outlier_title")), "</h3>\n\n",
+                            html_table(o), "<p class='small text-muted'>",
+                            html_escape(tx("ana_outlier_note")), "</p>\n\n"))
+}
+```
+
 # `r tx("rep_sec_dist")`
 
 ```{r plots, fig.width = 5, fig.height = 3.2, out.width = "48%"}
@@ -30,4 +44,129 @@ for (v in names(a$types)) {
   if (identical(v, by)) next
   print(plot_variable(a, v, by = by))
 }
+```
+
+# `r tx("rep_sec_prev")`
+
+```{r prev, results='asis'}
+p <- tryCatch(prevalence_table(a, by = by), error = function(e) NULL)
+if (!is.null(p) && nrow(p) > 0L) {
+  p$ci <- sprintf("%.1f - %.1f", p$ci_low, p$ci_high)
+  shown <- p[, c("label", "group", "n", "N", "pct", "ci")]
+  names(shown) <- c(tx("tbl_variable"), tx("col_group"), "n", "N", tx("col_prev"), tx("col_ci"))
+  knitr::asis_output(html_table(shown))
+}
+```
+
+```{r prevfig, fig.width = 8, fig.height = 4.2, out.width = "90%"}
+pp <- tryCatch(plot_prevalence(a, by = by), error = function(e) NULL)
+if (!is.null(pp)) print(pp)
+```
+
+```{r bivariate-head, results='asis'}
+if (length(outcomes) > 0L) knitr::asis_output(paste0("\n\n# ", tx("rep_sec_bivariate"), "\n\n"))
+```
+
+```{r bivariate, results='asis', fig.width = 7.5, fig.height = 6, out.width = "90%"}
+for (o in outcomes) {
+  say("\n\n## ", a$labels[[o]], "\n\n")
+  ct <- tryCatch(compare_continuous(a, o), error = function(e) NULL)
+  if (!is.null(ct)) {
+    shown <- ct[, setdiff(names(ct), "variable")]
+    shown$p_value <- vapply(shown$p_value, function(x) if (is.na(x)) "" else if (x < 0.001) "<0.001" else sprintf("%.3f", x), "")
+    names(shown)[c(1, ncol(shown) - 2L, ncol(shown) - 1L, ncol(shown))] <-
+      c(tx("tbl_variable"), tx("tbl_missing"), tx("col_test"), tx("col_p"))
+    cat(html_table(shown))
+  }
+  cc <- tryCatch(associations_categorical(a, o), error = function(e) NULL)
+  if (!is.null(cc) && nrow(cc) > 0L) {
+    cc$ci <- ifelse(is.na(cc$or), "", sprintf("%.2f - %.2f", cc$ci_low, cc$ci_high))
+    cc$or <- ifelse(is.na(cc$or), "", sprintf("%.2f", cc$or))
+    cc$p <- vapply(cc$p_value, function(x) if (is.na(x)) "" else if (x < 0.001) "<0.001" else sprintf("%.3f", x), "")
+    shown <- cc[, c("exposure_label", "compared", "n", "test", "or", "ci", "p")]
+    names(shown) <- c(tx("col_exposure"), tx("col_compared"), "n", tx("col_test"),
+                      tx("col_or"), tx("col_ci"), tx("col_p"))
+    cat(html_table(shown))
+  }
+}
+```
+
+```{r corr-head, results='asis'}
+if (length(biomarkers) >= 2L) knitr::asis_output(paste0("\n\n# ", tx("rep_sec_corr"), "\n\n"))
+```
+
+```{r corr, results='asis', fig.width = 7, fig.height = 6, out.width = "80%"}
+if (length(biomarkers) >= 2L) {
+  cr <- tryCatch(correlations(a, biomarkers), error = function(e) NULL)
+  if (!is.null(cr)) {
+    shown <- cr[, c("label1", "label2", "method", "n", "r", "p_value", "p_adj")]
+    shown$r <- sprintf("%.3f", shown$r)
+    for (k in c("p_value", "p_adj")) shown[[k]] <- vapply(shown[[k]], function(x) if (is.na(x)) "" else if (x < 0.001) "<0.001" else sprintf("%.3f", x), "")
+    names(shown) <- c(tx("col_exposure"), tx("col_exposure"), tx("col_method"), "n", tx("col_r"), tx("col_p"), tx("col_p_adj"))
+    cat(html_table(shown))
+  }
+  pc <- tryCatch(plot_correlation(a, biomarkers), error = function(e) NULL)
+  if (!is.null(pc)) print(pc)
+}
+```
+
+```{r reg-head, results='asis'}
+if (length(outcomes) > 0L && length(predictors) > 0L) {
+  knitr::asis_output(paste0("\n\n# ", tx("rep_sec_regression"), "\n\n"))
+}
+```
+
+```{r regression, results='asis', fig.width = 7.5, fig.height = 4.5, out.width = "85%"}
+if (length(outcomes) > 0L && length(predictors) > 0L) {
+  for (o in outcomes) {
+    m <- tryCatch(logistic_model(a, o, predictors), error = function(e) e)
+    say("\n\n## ", a$labels[[o]], "\n\n")
+    if (inherits(m, "error")) { say("*", conditionMessage(m), "*\n\n"); next }
+    for (nt in m$notes) say("* ", nt, "\n")
+    f <- m$fit
+    say("\n\n", sprintf("n = %d, %s = %d. Nagelkerke R2 = %s; Hosmer-Lemeshow p = %s; AUC = %s.",
+                          f$n, tx("col_events"), f$events,
+                          if (is.na(f$nagelkerke)) "-" else sprintf("%.3f", f$nagelkerke),
+                          if (is.na(f$hl_p)) "-" else sprintf("%.3f", f$hl_p),
+                          if (is.na(f$auc)) "-" else sprintf("%.3f (%.3f - %.3f)", f$auc, f$auc_low, f$auc_high)),
+        "\n\n")
+    mt <- model_table(m)[, c("label", "crude_or", "crude_ci", "crude_p", "adj_or", "adj_ci", "adj_p")]
+    for (k in c("crude_or", "adj_or")) mt[[k]] <- ifelse(is.na(mt[[k]]), "", sprintf("%.2f", mt[[k]]))
+    for (k in c("crude_p", "adj_p")) mt[[k]] <- vapply(mt[[k]], function(x) if (is.na(x)) "" else if (x < 0.001) "<0.001" else sprintf("%.3f", x), "")
+    names(mt) <- c(tx("tbl_variable"), tx("col_crude_or"), tx("col_ci"), tx("col_p"), tx("col_adj_or"), tx("col_ci"), tx("col_p"))
+    cat(html_table(mt))
+    if (nrow(m$terms) > 0L) print(plot_forest(m))
+  }
+}
+```
+
+```{r roc-head, results='asis'}
+if (length(outcomes) > 0L && length(biomarkers) > 0L) {
+  knitr::asis_output(paste0("\n\n# ", tx("rep_sec_roc"), "\n\n"))
+}
+```
+
+```{r roc, results='asis', fig.width = 9, fig.height = 5, out.width = "90%"}
+if (length(outcomes) > 0L && length(biomarkers) > 0L) {
+  rt <- tryCatch(roc_biomarkers(a, outcomes, biomarkers), error = function(e) NULL)
+  if (!is.null(rt) && nrow(rt) > 0L) {
+    shown <- rt
+    shown$ci <- sprintf("%.3f - %.3f", shown$ci_low, shown$ci_high)
+    shown$auc <- sprintf("%.3f", shown$auc)
+    for (k in c("cutoff", "sensitivity", "specificity", "ppv", "npv")) shown[[k]] <- sprintf("%.2f", shown[[k]])
+    shown <- shown[, c("outcome_label", "biomarker_label", "n", "events", "auc", "ci", "interpretation", "cutoff", "sensitivity", "specificity", "ppv", "npv")]
+    names(shown) <- c(tx("col_outcome"), tx("col_biomarker"), "n", tx("col_events"), tx("col_auc"), tx("col_ci"), tx("col_interp"), tx("col_cutoff"), tx("col_sens_pct"), tx("col_spec_pct"), tx("col_ppv"), tx("col_npv"))
+    cat(html_table(shown))
+    print(plot_auc_heatmap(rt))
+    for (o in unique(rt$outcome)) print(plot_roc(rt, o))
+  }
+}
+```
+
+# `r tx("rep_sec_methods")`
+
+```{r methods, results='asis'}
+knitr::asis_output(paste0("\n\n", paste0("<p>", html_escape(vapply(
+  c("meth_intro", "meth_descriptive", "meth_normality", "meth_bivariate", "meth_corr",
+    "meth_regression", "meth_roc"), tx, "")), "</p>", collapse = "\n"), "\n\n"))
 ```

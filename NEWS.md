@@ -1,3 +1,42 @@
+# RegiStat 0.2.0
+
+* Full statistical analysis, built from the analysis scripts of the thesis on
+  type 2 diabetes complications and made generic: any yes/no variable can be
+  an outcome and any variable a predictor or biomarker.
+  - Descriptive: Shapiro-Wilk normality table and histograms with the normal
+    curve, prevalences with exact Clopper-Pearson intervals overall and by
+    group (`prevalence_table()`, `normality_table()`), mean (SD) or median
+    (Q1, Q3) according to normality in `table_one(style = "auto")`.
+  - Bivariate: numeric variables by outcome with Welch's t-test or
+    Mann-Whitney (`compare_continuous()`), categorical variables with
+    chi-squared or Fisher's exact test and crude odds ratios
+    (`associations_categorical()`), Spearman/Pearson correlations with Holm
+    adjustment (`correlations()`).
+  - Logistic regression (`logistic_model()`, `model_table()`,
+    `regression_matrix()`): crude and adjusted odds ratios, optional backward
+    elimination by AIC, Nagelkerke R-squared, Hosmer-Lemeshow test, variance
+    inflation factors, events-per-coefficient warning and the AUC of the
+    model.
+  - ROC analysis of biomarkers (`roc_biomarkers()`): AUC with DeLong
+    interval, interpretation, Youden cut-off with sensitivity, specificity
+    and predictive values.
+  - Figures in the style of the manuscript, exportable as PNG, SVG or PDF
+    (`save_figure()`): population pyramid, counts by group, prevalence,
+    normality, boxplots by outcome, correlation map, forest plot, ROC curves,
+    predictor-by-outcome matrix and AUC heat map.
+  - The statistical core uses base R only; it is checked against the pROC and
+    car packages in the tests.
+  - Data quality: missing values by variable and extreme values by the IQR rule (`outlier_summary()`, flagged for checking, never removed); scatter plot with an optional loess curve and Spearman's r in the caption (`plot_relation(smooth = "loess")`).
+* New calculated measures: TyG index, counts and "at least one" flags of
+  complications and comorbidities, and a choice between the CKD-EPI 2021 and
+  2009 equations for eGFR.
+* The *Analysis* tab has new sections (Comparisons, Logistic regression, ROC
+  curves, Methods); every table downloads as CSV and every figure as PNG or
+  SVG. The HTML report now includes all of them and a description of the
+  statistical methods.
+* Fix: report headings and tables no longer show `<U+XXXX>` placeholders in
+  non-UTF-8 locales.
+
 # RegiStat 0.1.1
 
 * Initial package skeleton (development version).

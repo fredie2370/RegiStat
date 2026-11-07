@@ -4,7 +4,16 @@
 \alias{registry_report}
 \title{Reproducible registry report}
 \usage{
-registry_report(reg, file, lang = c("en", "es"), by = NULL)
+registry_report(
+  reg,
+  file,
+  lang = c("en", "es"),
+  by = NULL,
+  outcomes = NULL,
+  predictors = NULL,
+  biomarkers = NULL,
+  egfr_equation = c("2021", "2009")
+)
 }
 \arguments{
 \item{reg}{A registry from \code{\link[=registry_open]{registry_open()}} or \code{\link[=registry_create]{registry_create()}}.}
@@ -14,6 +23,19 @@ registry_report(reg, file, lang = c("en", "es"), by = NULL)
 \item{lang}{\code{"en"} or \code{"es"}.}
 
 \item{by}{Optional categorical variable to compare groups.}
+
+\item{outcomes}{Yes/no variables to analyse (comparisons, regression, ROC).
+Default: the yes/no variables with at least 10 events and 10 non-events.}
+
+\item{predictors}{Variables for the logistic models (default: age, sex,
+systolic pressure, hypertension, glucose, haemoglobin, uric acid and TyG
+index, when they exist in the dictionary).}
+
+\item{biomarkers}{Numeric variables for the ROC analysis and the
+correlations (default: a standard set when present).}
+
+\item{egfr_equation}{\code{"2021"} (default) or \code{"2009"}: CKD-EPI equation for the
+calculated eGFR, see \code{\link[=derive_variables]{derive_variables()}}.}
 }
 \value{
 The path of the report, invisibly.
@@ -21,7 +43,11 @@ The path of the report, invisibly.
 \description{
 Renders a self-contained HTML report of a registry: study and record
 count, the descriptive table (see \code{\link[=table_one]{table_one()}}, optionally by group),
-missing data, the distribution of every variable, and a reproducibility
+missing data, the distribution of every variable, prevalences with exact
+intervals, comparisons with each outcome (\code{\link[=compare_continuous]{compare_continuous()}},
+\code{\link[=associations_categorical]{associations_categorical()}}), correlations (\code{\link[=correlations]{correlations()}}), logistic
+regression (\code{\link[=logistic_model]{logistic_model()}}), ROC analysis of biomarkers
+(\code{\link[=roc_biomarkers]{roc_biomarkers()}}), a description of the statistical methods, and a reproducibility
 section with the package and R versions and the result of the audit-trail
 check (including its head hash, so the report can be tied to an exact
 state of the registry).

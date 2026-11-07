@@ -1,6 +1,6 @@
 # RegiStat
 
-> **Status: pre-alpha (0.1.1).** Early development. The API will change.
+> **Status: pre-alpha (0.2.0).** Early development. The API will change.
 
 **RegiStat** is a free, open-source toolkit for clinical and laboratory
 researchers who need structured data capture and reproducible analysis
@@ -25,27 +25,45 @@ para cualquier nivel de recursos.
 | Case finding ("cotejo"): reference-list versions, review log, derived status, summary, changes between lists, in a separate file / Cotejo: versiones de la lista de referencia, bitácora de revisiones, estado derivado, resumen, cambios entre listas, en un archivo aparte | Available / Disponible |
 | Authentication, roles, pseudonymisation helpers / Autenticación, roles, seudonimización | Planned / Planeado |
 | Descriptive analysis: Table 1 (overall or by group, with tests), missing data, interactive plotly/ggplot2 plots / Análisis descriptivo: Tabla 1 (total o por grupo, con pruebas), datos faltantes, gráficas interactivas | Available / Disponible |
+| Bivariate analysis, logistic regression, ROC curves with AUC heat map, 10 manuscript-style figures (PNG/SVG), methods text / Análisis bivariado, regresión logística, curvas ROC con mapa de calor de AUC, figuras estilo manuscrito (PNG/SVG), texto de métodos | Available / Disponible |
 | Offline reproducible HTML report (R Markdown, es/en) with audit-trail check / Reporte HTML reproducible sin conexión (R Markdown, es/en) con verificación de bitácora | Available / Disponible |
 | Calculated measures: BMI, WHO category, eGFR CKD-EPI 2021 / Medidas calculadas: IMC, categoría OMS, TFGe CKD-EPI 2021 | Available / Disponible |
 
 ## Installation / Instalación
 
 Source code: <https://github.com/fredie2370/RegiStat>. Pre-alpha: it is not
-on CRAN. Download or clone the repository and install from the folder that
-contains the `DESCRIPTION` file.
+on CRAN. You need R (>= 4.1). Install it straight from GitHub; the required
+packages are installed automatically:
 
 Código fuente: <https://github.com/fredie2370/RegiStat>. Fase pre-alfa: no
-está en CRAN. Descargue o clone el repositorio e instale desde la carpeta que
-contiene el archivo `DESCRIPTION`.
+está en CRAN. Se necesita R (>= 4.1). Instálelo directamente desde GitHub; los
+paquetes requeridos se instalan solos:
 
 ```r
-# Dependencies / Dependencias
-install.packages(c("shiny", "bslib", "DT", "DBI", "RSQLite", "digest",
-                   "jsonlite", "readxl", "withr", "yaml", "ggplot2"))
-# Optional: reports, interactive plots / Opcional: reportes, gráficas interactivas
-install.packages(c("rmarkdown", "knitr", "plotly"))
+install.packages("remotes")
+remotes::install_github("fredie2370/RegiStat")
 
-install.packages("path/to/RegiStat", repos = NULL, type = "source")
+# Optional / Opcional: reports, interactive plots, SVG figures
+# reportes, gráficas interactivas, figuras SVG
+install.packages(c("rmarkdown", "knitr", "plotly", "svglite"))
+```
+
+Reports also need Pandoc (included with RStudio). To fix a version, add a tag
+or release, for example `remotes::install_github("fredie2370/RegiStat@v0.2.0")`.
+Los reportes también necesitan Pandoc (incluido con RStudio). Para fijar una
+versión, añada una etiqueta o *release*, por ejemplo
+`remotes::install_github("fredie2370/RegiStat@v0.2.0")`.
+
+Alternative: download or clone the repository and install from the folder that
+contains the `DESCRIPTION` file (install its dependencies first:
+`shiny`, `bslib`, `DT`, `DBI`, `RSQLite`, `digest`, `jsonlite`, `readxl`,
+`withr`, `yaml`, `ggplot2`).
+Alternativa: descargue o clone el repositorio e instale desde la carpeta que
+contiene el archivo `DESCRIPTION` (instale antes sus dependencias, listadas
+arriba).
+
+```r
+install.packages("D:/RegiStat", repos = NULL, type = "source")  # example path / ruta de ejemplo
 ```
 
 ## Start the app / Iniciar la aplicación
@@ -76,13 +94,30 @@ plot_variable(a, "hba1c_pct", by = "sex_at_birth")
 registry_report(reg, "reporte.html", lang = "es", by = "sex_at_birth")
 ```
 
+The tab also has *Comparisons* (prevalence with exact intervals, normality,
+numeric and categorical variables by a yes/no outcome, correlations),
+*Logistic regression* (crude and adjusted odds ratios, forest plot, model ROC,
+predictor-by-outcome matrix), *ROC curves* (AUC with DeLong interval, Youden
+cut-off, AUC heat map) and *Methods* (what each analysis does and its limits).
+Tables download as CSV and figures as PNG or SVG. In scripts:
+
+```r
+associations_categorical(a, "ckd")
+m <- logistic_model(a, "ckd", c("age_years", "sex_at_birth", "uric_acid_mgdl"))
+model_table(m); plot_forest(m)
+tab <- roc_biomarkers(a, c("ckd", "dialysis"), c("uric_acid_mgdl", "tyg", "egfr"))
+plot_auc_heatmap(tab)
+```
+
 Reports need `rmarkdown`, `knitr` and Pandoc (included with RStudio);
-interactive plots need `plotly`. Without them the app still works and says
+interactive plots need `plotly`; SVG export is best with `svglite`. Without them the app still works and says
 what is missing. The p-values are descriptive aids with no adjustment for
 multiple comparisons.
 
 La pestaña *Análisis* ofrece una tabla descriptiva (opcionalmente por grupo,
-con valores p), gráficas interactivas y un reporte HTML sin conexión. Los
+con valores p), gráficas interactivas, comparaciones con un desenlace sí/no,
+correlaciones, regresión logística, curvas ROC con mapa de calor de AUC, un
+texto de métodos y un reporte HTML sin conexión. Los
 reportes requieren `rmarkdown`, `knitr` y Pandoc (incluido con RStudio); las
 gráficas interactivas, `plotly`. Los valores p son ayudas descriptivas, sin
 ajuste por comparaciones múltiples.

@@ -724,8 +724,8 @@ ana_color:
   en: "Colour by"
   es: "Color según"
 ana_report_intro:
-  en: "Creates one HTML file with the descriptive table, missing data, the distribution of every variable and the reproducibility details. It works offline and can be opened in any browser or printed to PDF."
-  es: "Crea un archivo HTML con la tabla descriptiva, los datos faltantes, la distribución de cada variable y los detalles de reproducibilidad. Funciona sin conexión y se puede abrir en cualquier navegador o imprimir a PDF."
+  en: "Creates one HTML file with the descriptive table, missing data, the distribution of every variable, prevalences, comparisons with each outcome, correlations, logistic regression, ROC analysis, a description of the methods and the reproducibility details. It works offline and can be opened in any browser or printed to PDF."
+  es: "Crea un archivo HTML con la tabla descriptiva, los datos faltantes, la distribución de cada variable, prevalencias, comparaciones con cada desenlace, correlaciones, regresión logística, análisis ROC, una descripción de los métodos y los detalles de reproducibilidad. Funciona sin conexión y se puede abrir en cualquier navegador o imprimir a PDF."
 ana_report_download:
   en: "Create and download report"
   es: "Crear y descargar reporte"
@@ -735,3 +735,620 @@ ana_report_unavailable:
 ana_working:
   en: "Creating report... this can take up to a minute."
   es: "Creando reporte... puede tardar hasta un minuto."
+
+auc_outstanding:
+  en: "Outstanding"
+  es: "Sobresaliente"
+auc_excellent:
+  en: "Excellent"
+  es: "Excelente"
+auc_acceptable:
+  en: "Acceptable"
+  es: "Aceptable"
+auc_unsatisfactory:
+  en: "Unsatisfactory"
+  es: "Insatisfactoria"
+auc_none:
+  en: "No discrimination"
+  es: "Sin discriminación"
+
+derived_egfr_eq:
+  en: "eGFR CKD-EPI %s (mL/min/1.73 m2)"
+  es: "TFGe CKD-EPI %s (mL/min/1.73 m2)"
+derived_tyg:
+  en: "TyG index"
+  es: "Índice TyG"
+derived_n_comp:
+  en: "Number of complications"
+  es: "Número de complicaciones"
+derived_any_comp:
+  en: "At least one complication"
+  es: "Al menos una complicación"
+derived_n_comorb:
+  en: "Number of comorbidities"
+  es: "Número de comorbilidades"
+derived_any_comorb:
+  en: "At least one comorbidity"
+  es: "Al menos una comorbilidad"
+derived_n_both:
+  en: "Number of complications and comorbidities"
+  es: "Número de complicaciones y comorbilidades"
+derived_any_both:
+  en: "At least one complication or comorbidity"
+  es: "Al menos una complicación o comorbilidad"
+
+test_welch:
+  en: "Welch t-test"
+  es: "t de Welch"
+test_wilcoxon:
+  en: "Wilcoxon rank-sum"
+  es: "U de Mann-Whitney"
+test_chisq:
+  en: "Chi-squared"
+  es: "Chi cuadrada"
+test_chisq_sim:
+  en: "Chi-squared (simulated)"
+  es: "Chi cuadrada (simulada)"
+test_anova:
+  en: "Welch ANOVA"
+  es: "ANOVA de Welch"
+test_kruskal:
+  en: "Kruskal-Wallis"
+  es: "Kruskal-Wallis"
+test_fisher:
+  en: "Fisher exact"
+  es: "Exacta de Fisher"
+
+note_constant:
+  en: "Left out because they do not vary among the complete cases: %s."
+  es: "Se excluyeron porque no varían entre los casos completos: %s."
+note_sparse:
+  en: "%s has levels with fewer than 5 records (%s): its estimates are unstable."
+  es: "%s tiene niveles con menos de 5 registros (%s): sus estimaciones son inestables."
+note_empty_model:
+  en: "Backward selection removed every predictor."
+  es: "La selección hacia atrás eliminó todos los predictores."
+note_separation:
+  en: "Some fitted probabilities are numerically 0 or 1 (possible complete separation): odds ratios and intervals may be unreliable."
+  es: "Algunas probabilidades ajustadas son numéricamente 0 o 1 (posible separación completa): los OR y sus intervalos pueden no ser confiables."
+note_noconv:
+  en: "The model did not converge."
+  es: "El modelo no convergió."
+note_epv:
+  en: "Only %.1f events per estimated coefficient (%d coefficients); at least 10 are recommended, so the model may be overfitted."
+  es: "Solo %.1f eventos por coeficiente estimado (%d coeficientes); se recomiendan al menos 10, por lo que el modelo puede estar sobreajustado."
+note_vif:
+  en: "A variance inflation factor above 5 suggests collinearity between predictors."
+  es: "Un factor de inflación de la varianza mayor de 5 sugiere colinealidad entre predictores."
+note_wald:
+  en: "Intervals are Wald intervals (profile likelihood was not available)."
+  es: "Los intervalos son de Wald (no estuvo disponible la verosimilitud perfil)."
+
+fig_age_group:
+  en: "Age group (years)"
+  es: "Grupo de edad (años)"
+fig_n_patients:
+  en: "Number of patients"
+  es: "Número de pacientes"
+fig_comp_comorb:
+  en: "Complication or comorbidity"
+  es: "Complicación o comorbilidad"
+fig_density:
+  en: "Density"
+  es: "Densidad"
+fig_normal_yes:
+  en: "Shapiro-Wilk p = %.4f: approximately normal"
+  es: "Shapiro-Wilk p = %.4f: aproximadamente normal"
+fig_normal_no:
+  en: "Shapiro-Wilk p = %.4f: not normal"
+  es: "Shapiro-Wilk p = %.4f: no normal"
+fig_normal_caption:
+  en: "Dashed line: normal curve with the same mean and SD. Red line: empirical density."
+  es: "Línea discontinua: curva normal con la misma media y DE. Línea roja: densidad empírica."
+fig_compare_caption:
+  en: "ns: p >= 0.05; * p < 0.05; ** p < 0.01; *** p < 0.001. Welch t-test if approximately normal, otherwise Wilcoxon."
+  es: "ns: p >= 0.05; * p < 0.05; ** p < 0.01; *** p < 0.001. t de Welch si es aproximadamente normal; si no, Wilcoxon."
+fig_cor_spearman:
+  en: "Spearman r"
+  es: "r de Spearman"
+fig_cor_pearson:
+  en: "Pearson r"
+  es: "r de Pearson"
+fig_forest_sub:
+  en: "Logistic regression - adjusted odds ratios with 95% CI"
+  es: "Regresión logística - odds ratio ajustados con IC 95%"
+fig_or_log:
+  en: "Adjusted odds ratio (log scale)"
+  es: "Odds ratio ajustado (escala log)"
+fig_significance:
+  en: "Significance"
+  es: "Significancia"
+fig_events:
+  en: "events"
+  es: "eventos"
+fig_risk:
+  en: "Risk factor"
+  es: "Factor de riesgo"
+fig_protective:
+  en: "Protective factor"
+  es: "Factor protector"
+fig_effect:
+  en: "Effect"
+  es: "Efecto"
+fig_cutoff_prob:
+  en: "Optimal cut-off (probability)"
+  es: "Punto de corte óptimo (probabilidad)"
+fig_roc:
+  en: "ROC curve"
+  es: "Curva ROC"
+fig_1_spec:
+  en: "1 - Specificity"
+  es: "1 - Especificidad"
+fig_roc_sub:
+  en: "Individual biomarker comparison"
+  es: "Comparación de biomarcadores individuales"
+fig_cutoff:
+  en: "Optimal cut-off point"
+  es: "Punto de corte óptimo"
+fig_diag_capacity:
+  en: "Diagnostic capacity\n(AUC interpretation)"
+  es: "Capacidad diagnóstica\n(interpretación del AUC)"
+fig_biomarker:
+  en: "Biomarker"
+  es: "Biomarcador"
+roc_skip:
+  en: "Skipped: %d events and %d non-events (at least 10 of each are needed)."
+  es: "Omitido: %d eventos y %d no eventos (se necesitan al menos 10 de cada uno)."
+col_sensitivity:
+  en: "Sensitivity"
+  es: "Sensibilidad"
+col_specificity:
+  en: "Specificity"
+  es: "Especificidad"
+
+grp_female:
+  en: "Assigned female at birth"
+  es: "Femenino al nacer"
+grp_male:
+  en: "Assigned male at birth"
+  es: "Masculino al nacer"
+
+ana_sub_bivariate:
+  en: "Comparisons"
+  es: "Comparaciones"
+
+ana_sub_regression:
+  en: "Logistic regression"
+  es: "Regresión logística"
+
+ana_sub_roc:
+  en: "ROC curves"
+  es: "Curvas ROC"
+
+ana_sub_methods:
+  en: "Methods"
+  es: "Métodos"
+
+ana_outcome:
+  en: "Outcome (yes/no)"
+  es: "Desenlace (sí/no)"
+
+ana_outcomes:
+  en: "Outcomes (yes/no)"
+  es: "Desenlaces (sí/no)"
+
+ana_predictors:
+  en: "Predictors"
+  es: "Predictores"
+
+ana_biomarkers:
+  en: "Biomarkers (numeric)"
+  es: "Biomarcadores (numéricos)"
+
+ana_corr_vars:
+  en: "Variables to correlate"
+  es: "Variables a correlacionar"
+
+ana_selection:
+  en: "Variable selection"
+  es: "Selección de variables"
+
+ana_sel_backward:
+  en: "Backward elimination (AIC)"
+  es: "Eliminación hacia atrás (AIC)"
+
+ana_sel_none:
+  en: "Keep all predictors"
+  es: "Conservar todos los predictores"
+
+ana_summary_stat:
+  en: "Summary of numeric variables"
+  es: "Resumen de variables numéricas"
+
+ana_stat_median:
+  en: "Median (Q1 - Q3)"
+  es: "Mediana (Q1 - Q3)"
+
+ana_stat_mean:
+  en: "Mean (SD)"
+  es: "Media (DE)"
+
+ana_corr_method:
+  en: "Correlation"
+  es: "Correlación"
+
+ana_run:
+  en: "Calculate"
+  es: "Calcular"
+
+ana_choose:
+  en: "Choose the variables and press Calculate."
+  es: "Elija las variables y pulse Calcular."
+
+ana_need_binary:
+  en: "This registry has no yes/no variables to use as outcomes."
+  es: "Este registro no tiene variables sí/no para usar como desenlaces."
+
+ana_prev_title:
+  en: "Prevalence with 95% confidence interval"
+  es: "Prevalencia con intervalo de confianza de 95%"
+
+ana_normality_title:
+  en: "Normality of numeric variables (Shapiro-Wilk)"
+  es: "Normalidad de las variables numéricas (Shapiro-Wilk)"
+
+ana_cont_title:
+  en: "Numeric variables by outcome"
+  es: "Variables numéricas según el desenlace"
+
+ana_cat_title:
+  en: "Categorical variables and the outcome"
+  es: "Variables categóricas y el desenlace"
+
+ana_corr_title:
+  en: "Correlations between numeric variables"
+  es: "Correlaciones entre variables numéricas"
+
+ana_fit_title:
+  en: "Model fit and discrimination"
+  es: "Ajuste y discriminación del modelo"
+
+ana_or_title:
+  en: "Crude and adjusted odds ratios"
+  es: "Razones de momios crudas y ajustadas"
+
+ana_matrix_title:
+  en: "Predictors kept in the model of each outcome"
+  es: "Predictores que quedan en el modelo de cada desenlace"
+
+ana_auc_title:
+  en: "Area under the curve, cut-off and predictive values"
+  es: "Área bajo la curva, punto de corte y valores predictivos"
+
+ana_heat_title:
+  en: "Map of AUC by biomarker and outcome"
+  es: "Mapa de AUC por biomarcador y desenlace"
+
+ana_roc_title:
+  en: "Comparison of biomarkers for one outcome"
+  es: "Comparación de biomarcadores para un desenlace"
+
+ana_skipped:
+  en: "Not calculated"
+  es: "No calculado"
+
+ana_download_png:
+  en: "Figure (PNG)"
+  es: "Figura (PNG)"
+
+ana_download_svg:
+  en: "Figure (SVG)"
+  es: "Figura (SVG)"
+
+ana_download_csv:
+  en: "Table (CSV)"
+  es: "Tabla (CSV)"
+
+ana_few_data:
+  en: "Not enough data for this analysis with the chosen variables."
+  es: "No hay datos suficientes para este análisis con las variables elegidas."
+
+ana_error:
+  en: "The analysis could not be done: %s"
+  es: "No se pudo hacer el análisis: %s"
+
+ana_methods_note:
+  en: "Results are exploratory. Read the methods below to know exactly what each analysis does and its limits."
+  es: "Los resultados son exploratorios. Lea los métodos para saber qué hace exactamente cada análisis y sus límites."
+
+col_exposure:
+  en: "Variable"
+  es: "Variable"
+
+col_outcome:
+  en: "Outcome"
+  es: "Desenlace"
+
+col_compared:
+  en: "Compared"
+  es: "Comparación"
+
+col_test:
+  en: "Test"
+  es: "Prueba"
+
+col_p:
+  en: "p"
+  es: "p"
+
+col_p_adj:
+  en: "p adjusted"
+  es: "p ajustada"
+
+col_or:
+  en: "Odds ratio"
+  es: "Razón de momios"
+
+col_ci:
+  en: "95% CI"
+  es: "IC 95%"
+
+col_crude_or:
+  en: "Crude OR"
+  es: "RM cruda"
+
+col_adj_or:
+  en: "Adjusted OR"
+  es: "RM ajustada"
+
+col_r:
+  en: "r"
+  es: "r"
+
+col_method:
+  en: "Method"
+  es: "Método"
+
+col_events:
+  en: "Events"
+  es: "Eventos"
+
+col_auc:
+  en: "AUC"
+  es: "AUC"
+
+col_cutoff:
+  en: "Cut-off"
+  es: "Punto de corte"
+
+col_ppv:
+  en: "PPV (%)"
+  es: "VPP (%)"
+
+col_npv:
+  en: "NPV (%)"
+  es: "VPN (%)"
+
+col_sens_pct:
+  en: "Sensitivity (%)"
+  es: "Sensibilidad (%)"
+
+col_spec_pct:
+  en: "Specificity (%)"
+  es: "Especificidad (%)"
+
+col_interp:
+  en: "Interpretation"
+  es: "Interpretación"
+
+col_biomarker:
+  en: "Biomarker"
+  es: "Biomarcador"
+
+col_group:
+  en: "Group"
+  es: "Grupo"
+
+col_prev:
+  en: "Prevalence (%)"
+  es: "Prevalencia (%)"
+
+col_normal:
+  en: "Normal?"
+  es: "¿Normal?"
+
+col_w:
+  en: "W"
+  es: "W"
+
+col_direction:
+  en: "Direction"
+  es: "Dirección"
+
+col_fit_stat:
+  en: "Measure"
+  es: "Medida"
+
+col_value:
+  en: "Value"
+  es: "Valor"
+
+fit_n:
+  en: "Records in the model"
+  es: "Registros en el modelo"
+
+fit_events:
+  en: "Events"
+  es: "Eventos"
+
+fit_epv:
+  en: "Events per coefficient"
+  es: "Eventos por coeficiente"
+
+fit_aic:
+  en: "AIC (null / final)"
+  es: "AIC (nulo / final)"
+
+fit_nagelkerke:
+  en: "Nagelkerke R-squared"
+  es: "R cuadrada de Nagelkerke"
+
+fit_hl:
+  en: "Hosmer-Lemeshow p"
+  es: "p de Hosmer-Lemeshow"
+
+fit_auc:
+  en: "AUC (95% CI)"
+  es: "AUC (IC 95%)"
+
+fit_vif:
+  en: "Largest VIF"
+  es: "VIF máximo"
+
+dir_higher:
+  en: "higher values"
+  es: "valores altos"
+
+dir_lower:
+  en: "lower values"
+  es: "valores bajos"
+
+yes_word:
+  en: "yes"
+  es: "sí"
+
+no_word:
+  en: "no"
+  es: "no"
+
+rep_sec_methods:
+  en: "Statistical methods"
+  es: "Métodos estadísticos"
+
+rep_sec_bivariate:
+  en: "Comparisons with an outcome"
+  es: "Comparaciones con un desenlace"
+
+rep_sec_prev:
+  en: "Prevalence"
+  es: "Prevalencia"
+
+rep_sec_corr:
+  en: "Correlations"
+  es: "Correlaciones"
+
+rep_sec_regression:
+  en: "Logistic regression"
+  es: "Regresión logística"
+
+rep_sec_roc:
+  en: "ROC analysis of biomarkers"
+  es: "Análisis ROC de biomarcadores"
+
+rep_outcome_label:
+  en: "Outcome"
+  es: "Desenlace"
+
+meth_intro:
+  en: "All analyses use the records currently in the registry. Calculated measures (BMI, eGFR, TyG index, complication counts) are derived on the fly and are never stored. Missing values are left out of each analysis (available cases); \"unknown\" answers count as missing. P-values are not adjusted for multiple comparisons unless stated, and no result should be read as confirmatory."
+  es: "Todos los análisis usan los registros que hay en el registro. Las medidas calculadas (IMC, TFGe, índice TyG, conteos de complicaciones) se derivan al momento y nunca se guardan. Los valores faltantes se excluyen de cada análisis (casos disponibles); las respuestas \"desconocido\" cuentan como faltantes. Los valores p no se ajustan por comparaciones múltiples salvo que se indique, y ningún resultado debe leerse como confirmatorio."
+
+meth_descriptive:
+  en: "Descriptive statistics: numeric variables as mean (SD) and median (Q1 - Q3); categorical variables as n (%). Between groups, numeric variables are compared with Welch's t-test (two groups, approximately normal) or the Wilcoxon rank-sum test, ANOVA or Kruskal-Wallis (three or more groups); categorical variables with the chi-squared test, or Fisher's exact test when an expected count is below 5. Prevalences have exact Clopper-Pearson 95% confidence intervals."
+  es: "Estadística descriptiva: variables numéricas como media (DE) y mediana (Q1 - Q3); categóricas como n (%). Entre grupos, las numéricas se comparan con la t de Welch (dos grupos, aproximadamente normales) o la prueba de suma de rangos de Wilcoxon, ANOVA o Kruskal-Wallis (tres o más grupos); las categóricas con la prueba de chi cuadrada, o la exacta de Fisher cuando alguna frecuencia esperada es menor que 5. Las prevalencias llevan intervalo de confianza exacto de Clopper-Pearson de 95%."
+
+meth_normality:
+  en: "Normality is assessed with the Shapiro-Wilk test (p > 0.05 is taken as approximately normal) together with histograms with the density curve and the theoretical normal curve. With few records the test has little power, so inspect the histograms."
+  es: "La normalidad se evalúa con la prueba de Shapiro-Wilk (p > 0.05 se toma como aproximadamente normal) junto con histogramas con la curva de densidad y la curva normal teórica. Con pocos registros la prueba tiene poca potencia, por lo que conviene revisar los histogramas."
+
+meth_bivariate:
+  en: "Comparison with a yes/no outcome: numeric variables are summarised in each group and compared with Welch's t-test (approximately normal) or the Wilcoxon rank-sum (Mann-Whitney) test. Categorical variables are cross-tabulated with the outcome: chi-squared with continuity correction, or Fisher's exact test when an expected count is below 5; for 2x2 tables the crude odds ratio has a 95% interval (Wald for chi-squared, exact for Fisher)."
+  es: "Comparación con un desenlace sí/no: las variables numéricas se resumen en cada grupo y se comparan con la t de Welch (aproximadamente normales) o la prueba de Wilcoxon (Mann-Whitney). Las categóricas se cruzan con el desenlace: chi cuadrada con corrección de continuidad, o exacta de Fisher cuando alguna frecuencia esperada es menor que 5; en tablas 2x2 la razón de momios cruda lleva intervalo de 95% (Wald para chi cuadrada, exacto para Fisher)."
+
+meth_corr:
+  en: "Correlations: Spearman (default), Pearson, or automatic (Pearson when both variables look normal) on the records with both values. P-values are adjusted over all pairs with the Holm method."
+  es: "Correlaciones: Spearman (por defecto), Pearson o automática (Pearson cuando ambas variables parecen normales) con los registros que tienen ambos valores. Los valores p se ajustan sobre todos los pares con el método de Holm."
+
+meth_regression:
+  en: "Logistic regression: binary logistic model on complete cases. Yes/no predictors use \"no\" as reference. Optionally, backward elimination by AIC. Reported: crude and adjusted odds ratios with 95% Wald intervals, Nagelkerke R-squared, Hosmer-Lemeshow test (10 groups), variance inflation factors, and the AUC of the fitted probabilities with its DeLong interval and Youden cut-off. At least 10 events per estimated coefficient are advisable; selection by AIC makes p-values optimistic, so use the result as exploratory or validate it on other data. Variables that are consequences of the outcome (for example creatinine for kidney disease) should not be predictors."
+  es: "Regresión logística: modelo logístico binario con casos completos. Los predictores sí/no usan \"no\" como referencia. Opcionalmente, eliminación hacia atrás por AIC. Se reportan razones de momios crudas y ajustadas con intervalos de Wald de 95%, R cuadrada de Nagelkerke, prueba de Hosmer-Lemeshow (10 grupos), factores de inflación de la varianza y el AUC de las probabilidades ajustadas con su intervalo de DeLong y su punto de corte de Youden. Conviene tener al menos 10 eventos por coeficiente estimado; la selección por AIC vuelve optimistas los valores p, por lo que el resultado es exploratorio o debe validarse con otros datos. Las variables que son consecuencia del desenlace (por ejemplo la creatinina para la enfermedad renal) no deben ser predictores."
+
+meth_roc:
+  en: "ROC analysis: for each biomarker and outcome, the area under the curve (AUC) with its DeLong 95% interval, read as outstanding (>= 0.90), excellent (>= 0.80), acceptable (>= 0.70), unsatisfactory (>= 0.60) or no discrimination. The cut-off maximises Youden's index (sensitivity + specificity - 1), with its sensitivity, specificity and predictive values. Cut-offs and accuracy are computed on the same data that found them, so they are optimistic, and predictive values depend on the prevalence in this sample. A biomarker that defines the outcome (eGFR and kidney disease) will discriminate well by construction."
+  es: "Análisis ROC: para cada biomarcador y desenlace, el área bajo la curva (AUC) con su intervalo de DeLong de 95%, leída como sobresaliente (>= 0.90), excelente (>= 0.80), aceptable (>= 0.70), insatisfactoria (>= 0.60) o sin discriminación. El punto de corte maximiza el índice de Youden (sensibilidad + especificidad - 1), con su sensibilidad, especificidad y valores predictivos. Los puntos de corte y la exactitud se calculan con los mismos datos que los encontraron, por lo que son optimistas, y los valores predictivos dependen de la prevalencia en esta muestra. Un biomarcador que define el desenlace (TFGe y enfermedad renal) discrimina bien por construcción."
+
+col_nobs:
+  en: "n"
+  es: "n"
+
+ana_egfr_eq:
+  en: "eGFR equation"
+  es: "Ecuación de TFGe"
+
+ana_egfr_2021:
+  en: "CKD-EPI 2021 (without race coefficient)"
+  es: "CKD-EPI 2021 (sin coeficiente de raza)"
+
+ana_egfr_2009:
+  en: "CKD-EPI 2009 (as in earlier studies)"
+  es: "CKD-EPI 2009 (como en estudios previos)"
+
+ana_table_style:
+  en: "Numeric variables in the table"
+  es: "Variables numéricas en la tabla"
+
+ana_style_both:
+  en: "Mean (SD) and median (Q1, Q3)"
+  es: "Media (DE) y mediana (Q1, Q3)"
+
+ana_style_auto:
+  en: "Mean (SD) if normal, otherwise median (Q1, Q3)"
+  es: "Media (DE) si es normal, si no mediana (Q1, Q3)"
+plot_spearman:
+  en: "Spearman r = %s"
+  es: "r de Spearman = %s"
+ana_quality_title:
+  en: "Data quality: missing values and extreme values"
+  es: "Calidad de los datos: valores faltantes y valores extremos"
+ana_missing_title:
+  en: "Missing values by variable"
+  es: "Valores faltantes por variable"
+ana_outlier_title:
+  en: "Extreme values (beyond 3 interquartile ranges)"
+  es: "Valores extremos (más allá de 3 rangos intercuartílicos)"
+ana_outlier_note:
+  en: "Flagged values are not removed or changed: check them against the source record. Rows refer to the order of the records in the analysis data."
+  es: "Los valores señalados no se eliminan ni se modifican: verifíquelos contra el expediente. Las filas se refieren al orden de los registros en los datos del análisis."
+ana_smooth:
+  en: "Trend line"
+  es: "Línea de tendencia"
+ana_smooth_lm:
+  en: "Straight line"
+  es: "Recta"
+ana_smooth_loess:
+  en: "Local curve (loess)"
+  es: "Curva local (loess)"
+col_pct_missing:
+  en: "% missing"
+  es: "% faltante"
+col_q1:
+  en: "Q1"
+  es: "Q1"
+col_q3:
+  en: "Q3"
+  es: "Q3"
+col_lower:
+  en: "Lower limit"
+  es: "Límite inferior"
+col_upper:
+  en: "Upper limit"
+  es: "Límite superior"
+col_n_outliers:
+  en: "Extreme values (n)"
+  es: "Valores extremos (n)"
+col_rows:
+  en: "Rows"
+  es: "Filas"
+col_values:
+  en: "Values"
+  es: "Valores"
