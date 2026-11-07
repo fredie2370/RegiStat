@@ -14,7 +14,10 @@
 #' arithmetic and logical operators, parentheses and `is.na()` are allowed,
 #' so a shared dictionary can never run arbitrary code.
 #'
-#' @param path Path to a YAML dictionary file (UTF-8).
+#' A dictionary can also be written in a spreadsheet (`.xlsx`), see
+#' [dictionary_to_tables()] for its layout.
+#'
+#' @param path Path to a YAML dictionary file (UTF-8) or an Excel file.
 #' @return A `registat_dictionary` object (a list).
 #' @examples
 #' dict <- load_template("t2d")
@@ -23,6 +26,9 @@
 read_dictionary <- function(path) {
   if (!is.character(path) || length(path) != 1L || !file.exists(path)) {
     abort("Dictionary file not found: %s", paste(path, collapse = ", "))
+  }
+  if (tolower(tools::file_ext(path)) %in% c("xlsx", "xls")) {
+    return(read_dictionary_xlsx(path))
   }
   # Read the bytes as UTF-8 without converting to the native encoding, so that
   # accented characters survive on systems whose locale is not UTF-8.

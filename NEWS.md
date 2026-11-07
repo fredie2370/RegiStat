@@ -1,5 +1,16 @@
 # RegiStat 0.2.0
 
+* Data-dictionary builder: dictionaries can be written in an Excel file
+  (sheets Study, Variables, Choices, Rules) and are validated with errors that
+  name the sheet and row (`read_dictionary()` now reads `.xlsx`,
+  `dictionary_template_xlsx()`, `dictionary_to_tables()`,
+  `dictionary_from_tables()`, `write_dictionary()`). The start screen accepts
+  Excel or YAML, previews validity and offers downloads.
+* Start-up icon: `create_launcher()` (Windows `.bat`, macOS `.command`,
+  Linux `.sh`) and `installer/Install-RegiStat.bat` (untested on Windows).
+* User manual in Spanish and English as vignettes with screenshots.
+* Fix: calculated "at least one" flags failed for a single record.
+
 * Full statistical analysis, built from the analysis scripts of the thesis on
   type 2 diabetes complications and made generic: any yes/no variable can be
   an outcome and any variable a predictor or biomarker.

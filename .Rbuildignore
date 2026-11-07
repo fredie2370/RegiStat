@@ -7,3 +7,4 @@
 ^codemeta\.json$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^installer$

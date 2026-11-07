@@ -155,6 +155,40 @@ app_server <- function(folder, lang0) {
       file.path(path.expand(f), "registry.sqlite")
     }
 
+    # The dictionary currently chosen: an uploaded file or the template.
+    chosen_dict <- shiny::reactive({
+      tryCatch(
+        if (!is.null(input$dict_file)) {
+          read_dictionary(input$dict_file$datapath)
+        } else {
+          load_template(input$template %||% "t2d")
+        },
+        error = function(e) e)
+    })
+    output$dict_preview <- shiny::renderUI({
+      l <- lang()
+      d <- chosen_dict()
+      if (inherits(d, "error")) {
+        return(status_alert(ui_text("msg_dict_error", l, conditionMessage(d)), "danger"))
+      }
+      if (is.null(input$dict_file)) return(NULL)
+      status_alert(ui_text("msg_dict_ok", l, length(d$variables), length(d$rules)),
+                   "success")
+    })
+    output$dl_dict_xlsx <- shiny::downloadHandler(
+      filename = function() "registat_dictionary_template.xlsx",
+      content = function(file) {
+        ex <- if (identical(input$template, "t2d") && is.null(input$dict_file)) "t2d" else "minimal"
+        dictionary_template_xlsx(file, ex)
+      })
+    output$dl_dict_yaml <- shiny::downloadHandler(
+      filename = function() "dictionary.yml",
+      content = function(file) {
+        d <- chosen_dict()
+        if (inherits(d, "error")) abort("%s", conditionMessage(d))
+        write_dictionary(d, file)
+      })
+
     shiny::observeEvent(input$open, {
       l <- lang()
       p <- registry_path()
@@ -190,11 +224,8 @@ app_server <- function(folder, lang0) {
         return()
       }
       res <- tryCatch({
-        dict <- if (!is.null(input$dict_file)) {
-          read_dictionary(input$dict_file$datapath)
-        } else {
-          load_template(input$template %||% "t2d")
-        }
+        dict <- chosen_dict()
+        if (inherits(dict, "error")) stop(dict)
         dir.create(dirname(p), recursive = TRUE, showWarnings = FALSE)
         registry_create(p, dict, user = user())
       }, error = function(e) e)
@@ -221,7 +252,15 @@ start_ui <- function(folder, lang) {
                        selectize = FALSE),
     shiny::fileInput("dict_file", ui_text("start_dict_file", lang),
                      buttonLabel = ui_text("import_browse", lang),
-                     placeholder = "", accept = c(".yml", ".yaml"), width = "100%"),
+                     placeholder = "", accept = c(".yml", ".yaml", ".xlsx", ".xls"),
+                     width = "100%"),
+    shiny::uiOutput("dict_preview"),
+    shiny::tags$div(
+      class = "d-flex flex-wrap gap-2 mb-3",
+      shiny::downloadButton("dl_dict_xlsx", ui_text("start_dl_xlsx", lang),
+                            class = "btn-sm btn-outline-secondary"),
+      shiny::downloadButton("dl_dict_yaml", ui_text("start_dl_yaml", lang),
+                            class = "btn-sm btn-outline-secondary")),
     shiny::uiOutput("start_message"),
     shiny::tags$div(
       class = "d-flex gap-2",

@@ -102,8 +102,9 @@ derive_variables <- function(data, lang = c("en", "es"), egfr_equation = c("2021
   yes_flag <- function(vars) {
     vars <- intersect(vars, names(data))
     if (length(vars) == 0L) return(NULL)
-    n <- rowSums(vapply(vars, function(v) as.integer(data[[v]] %in% "yes"),
-                        integer(nrow(data))), na.rm = TRUE)
+    m <- matrix(unlist(lapply(vars, function(v) as.integer(data[[v]] %in% "yes"))),
+                nrow = nrow(data), ncol = length(vars))
+    n <- rowSums(m, na.rm = TRUE)
     n <- as.integer(n)
     flag <- factor(ifelse(n > 0L, "yes", "no"), levels = c("no", "yes"),
                    labels = c(ui_text("answer_no", lang), ui_text("answer_yes", lang)))

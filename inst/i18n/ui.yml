@@ -49,8 +49,20 @@ start_template:
   en: "Study template (only when creating)"
   es: "Plantilla de estudio (solo al crear)"
 start_dict_file:
-  en: "Or your own dictionary file (YAML, optional)"
-  es: "O su propio archivo de diccionario (YAML, opcional)"
+  en: "Or your own dictionary file (Excel or YAML, optional)"
+  es: "O su propio archivo de diccionario (Excel o YAML, opcional)"
+start_dl_xlsx:
+  en: "Download Excel dictionary to fill in"
+  es: "Descargar diccionario en Excel para llenar"
+start_dl_yaml:
+  en: "Download chosen dictionary (YAML)"
+  es: "Descargar diccionario elegido (YAML)"
+msg_dict_error:
+  en: "The dictionary has a problem: %s"
+  es: "El diccionario tiene un problema: %s"
+msg_dict_ok:
+  en: "Dictionary is valid: %d variables, %d rule(s)."
+  es: "Diccionario v\u00e1lido: %d variables, %d regla(s)."
 start_open:
   en: "Open existing registry"
   es: "Abrir registro existente"

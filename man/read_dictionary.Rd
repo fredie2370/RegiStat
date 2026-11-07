@@ -7,7 +7,7 @@
 read_dictionary(path)
 }
 \arguments{
-\item{path}{Path to a YAML dictionary file (UTF-8).}
+\item{path}{Path to a YAML dictionary file (UTF-8) or an Excel file.}
 }
 \value{
 A \code{registat_dictionary} object (a list).
@@ -27,6 +27,9 @@ never a hospital file number or any direct identifier.
 Rule expressions must evaluate to \code{TRUE} for valid rows. Only comparison,
 arithmetic and logical operators, parentheses and \code{is.na()} are allowed,
 so a shared dictionary can never run arbitrary code.
+
+A dictionary can also be written in a spreadsheet (\code{.xlsx}), see
+\code{\link[=dictionary_to_tables]{dictionary_to_tables()}} for its layout.
 }
 \examples{
 dict <- load_template("t2d")

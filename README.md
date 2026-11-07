@@ -68,6 +68,8 @@ install.packages("D:/RegiStat", repos = NULL, type = "source")  # example path /
 
 ## Start the app / Iniciar la aplicación
 
+Double-click icon / Icono de inicio: `RegiStat::create_launcher()` (Windows installer: `installer/Install-RegiStat.bat`). Manuals / Manuales: `vignette("manual-en", "RegiStat")`, `vignette("manual-es", "RegiStat")`.
+
 ```r
 RegiStat::run_app(folder = "my-study", lang = "es")
 ```
