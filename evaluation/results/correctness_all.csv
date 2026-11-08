@@ -1,0 +1,329 @@
+"dataset","domain","quantity","registat","reference","abs_diff","rel_diff","equivalent"
+"syn150","prevalence","percentage",13.2867132867133,13.2867132867133,0,0,TRUE
+"syn150","prevalence","CI limits[1]",8.19283630683584,8.19283630683584,0,0,TRUE
+"syn150","prevalence","CI limits[2]",19.9689694518537,19.9689694518537,0,0,TRUE
+"syn150","normality","Shapiro-Wilk W[1]",0.995017892914378,0.995017892914378,0,0,TRUE
+"syn150","normality","Shapiro-Wilk W[2]",0.992769967930766,0.992769967930766,0,0,TRUE
+"syn150","normality","Shapiro-Wilk W[3]",0.985775598943352,0.985775598943352,0,0,TRUE
+"syn150","normality","Shapiro-Wilk W[4]",0.985992875052898,0.985992875052898,0,0,TRUE
+"syn150","normality","Shapiro-Wilk W[5]",0.98912267087034,0.98912267087034,0,0,TRUE
+"syn150","normality","Shapiro-Wilk p[1]",0.891792848456624,0.891792848456624,0,0,TRUE
+"syn150","normality","Shapiro-Wilk p[2]",0.652429946248658,0.652429946248658,0,0,TRUE
+"syn150","normality","Shapiro-Wilk p[3]",0.126672580818597,0.126672580818597,0,0,TRUE
+"syn150","normality","Shapiro-Wilk p[4]",0.134067920955269,0.134067920955269,0,0,TRUE
+"syn150","normality","Shapiro-Wilk p[5]",0.29664980765102,0.29664980765102,0,0,TRUE
+"syn150","group comparison","p-value (test chosen by RegiStat)[1]",0.131987704209409,0.131987704209409,0,0,TRUE
+"syn150","group comparison","p-value (test chosen by RegiStat)[2]",0.279266000217316,0.279266000217316,0,0,TRUE
+"syn150","group comparison","p-value (test chosen by RegiStat)[3]",0.616454306722804,0.616454306722804,0,0,TRUE
+"syn150","group comparison","p-value (test chosen by RegiStat)[4]",0.674293355870306,0.674293355870306,0,0,TRUE
+"syn150","group comparison","p-value (test chosen by RegiStat)[5]",0.618897860447157,0.618897860447157,0,0,TRUE
+"syn150","association","p-value sex_at_birth",0.842638325528877,0.842638325528877,0,0,TRUE
+"syn150","association","p-value ckd",0.657200648088286,0.657200648088287,2.22044604925031e-16,3.37864251307315e-16,TRUE
+"syn150","correlation","Spearman rho[1]",-0.117474971672199,-0.117474971672199,0,0,TRUE
+"syn150","correlation","Spearman rho[2]",-0.0817933414969119,-0.0817933414969119,0,0,TRUE
+"syn150","correlation","Spearman rho[3]",-0.0799608480031447,-0.0799608480031447,0,0,TRUE
+"syn150","correlation","Spearman rho[4]",-0.0595338388292078,-0.0595338388292078,0,0,TRUE
+"syn150","correlation","Spearman rho[5]",0.0452942352818458,0.0452942352818458,0,0,TRUE
+"syn150","correlation","Spearman rho[6]",-0.000475016353714435,-0.000475016353714435,0,0,TRUE
+"syn150","correlation","p-value[1]",0.152231132996415,0.152231132996415,0,0,TRUE
+"syn150","correlation","p-value[2]",0.319712924067486,0.319712924067486,0,0,TRUE
+"syn150","correlation","p-value[3]",0.330711139052573,0.330711139052573,0,0,TRUE
+"syn150","correlation","p-value[4]",0.469262033218029,0.469262033218029,0,0,TRUE
+"syn150","correlation","p-value[5]",0.582058234841975,0.582058234841975,0,0,TRUE
+"syn150","correlation","p-value[6]",0.99539697327572,0.99539697327572,0,0,TRUE
+"syn150","correlation","Holm-adjusted p[1]",0.913386797978488,0.913386797978488,0,0,TRUE
+"syn150","correlation","Holm-adjusted p[2]",1,1,0,0,TRUE
+"syn150","correlation","Holm-adjusted p[3]",1,1,0,0,TRUE
+"syn150","correlation","Holm-adjusted p[4]",1,1,0,0,TRUE
+"syn150","correlation","Holm-adjusted p[5]",1,1,0,0,TRUE
+"syn150","correlation","Holm-adjusted p[6]",1,1,0,0,TRUE
+"syn150","logistic","coefficients[1]",-1.92696414206601,-1.92696414206601,0,0,TRUE
+"syn150","logistic","coefficients[2]",0.0284033506440789,0.0284033506440789,0,0,TRUE
+"syn150","logistic","coefficients[3]",-0.0997631188187394,-0.0997631188187394,0,0,TRUE
+"syn150","logistic","coefficients[4]",-0.00172860107204362,-0.00172860107204362,0,0,TRUE
+"syn150","logistic","coefficients[5]",-0.143856490028891,-0.143856490028891,0,0,TRUE
+"syn150","logistic","coefficients[6]",0.0934082455353617,0.0934082455353617,0,0,TRUE
+"syn150","logistic","OR[1]",1.0288105721501,1.0288105721501,0,0,TRUE
+"syn150","logistic","OR[2]",0.90505178238083,0.90505178238083,0,0,TRUE
+"syn150","logistic","OR[3]",0.9982728920983,0.9982728920983,0,0,TRUE
+"syn150","logistic","OR[4]",0.866012020501866,0.866012020501866,0,0,TRUE
+"syn150","logistic","OR[5]",1.09790986058809,1.09790986058809,0,0,TRUE
+"syn150","logistic","OR profile CI[1]",0.983524224864207,0.983524224864207,0,0,TRUE
+"syn150","logistic","OR profile CI[2]",0.315136400583457,0.315136400583457,0,0,TRUE
+"syn150","logistic","OR profile CI[3]",0.988564509032456,0.988564509032456,0,0,TRUE
+"syn150","logistic","OR profile CI[4]",0.635780440145493,0.635780440145493,0,0,TRUE
+"syn150","logistic","OR profile CI[5]",0.763633984822355,0.763633984822355,0,0,TRUE
+"syn150","logistic","OR profile CI[6]",1.07767116123241,1.07767116123241,0,0,TRUE
+"syn150","logistic","OR profile CI[7]",2.52888824317458,2.52888824317458,0,0,TRUE
+"syn150","logistic","OR profile CI[8]",1.00768511396418,1.00768511396418,0,0,TRUE
+"syn150","logistic","OR profile CI[9]",1.18024931856221,1.18024931856221,0,0,TRUE
+"syn150","logistic","OR profile CI[10]",1.59916377354303,1.59916377354303,0,0,TRUE
+"syn150","logistic","Wald p[1]",0.219391217467903,0.219391217467903,0,0,TRUE
+"syn150","logistic","Wald p[2]",0.849204767113983,0.849204767113983,0,0,TRUE
+"syn150","logistic","Wald p[3]",0.721334936557853,0.721334936557853,0,0,TRUE
+"syn150","logistic","Wald p[4]",0.358221263369397,0.358221263369397,0,0,TRUE
+"syn150","logistic","Wald p[5]",0.617558342725241,0.617558342725241,0,0,TRUE
+"syn150","logistic","Nagelkerke R2",0.0408181921372656,0.0408181921372652,4.02455846426619e-16,9.85971757576189e-15,TRUE
+"syn150","logistic","AIC",120.848465272354,120.848465272354,0,0,TRUE
+"syn150","logistic","VIF/GVIF^(1/Df)[1]",1.02500284163764,1.02500284163764,0,0,TRUE
+"syn150","logistic","VIF/GVIF^(1/Df)[2]",1.08373619254763,1.08373619254763,0,0,TRUE
+"syn150","logistic","VIF/GVIF^(1/Df)[3]",1.05053055464365,1.05053055464365,0,0,TRUE
+"syn150","logistic","VIF/GVIF^(1/Df)[4]",1.04542252588788,1.04542252588788,0,0,TRUE
+"syn150","logistic","VIF/GVIF^(1/Df)[5]",1.02599485262597,1.02599485262597,0,0,TRUE
+"syn150","selection","AIC of final model",114.05505477596,114.05505477596,0,0,TRUE
+"syn150","selection","number of selected terms",0,0,0,0,TRUE
+"syn150","selection","same terms selected (1 = yes)",1,1,0,0,TRUE
+"syn150","ROC","AUC hypertension age_years",0.586375212224109,0.586375212224109,1.11022302462516e-16,1.89336622947294e-16,TRUE
+"syn150","ROC","DeLong CI hypertension age_years[1]",0.470545628137301,0.470545628137301,0,0,TRUE
+"syn150","ROC","DeLong CI hypertension age_years[2]",0.702204796310917,0.702204796310917,0,0,TRUE
+"syn150","ROC","Youden cut-off hypertension age_years",53.5,53.5,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension age_years[1]",94.7368421052632,94.7368421052632,1.4210854715202e-14,1.50003466438243e-16,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension age_years[2]",30.6451612903226,30.6451612903226,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension age_years[3]",17.3076923076923,17.3076923076923,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension age_years[4]",97.4358974358974,97.4358974358974,0,0,TRUE
+"syn150","ROC","AUC hypertension hemoglobin_gdl",0.579159592529711,0.579159592529711,0,0,TRUE
+"syn150","ROC","DeLong CI hypertension hemoglobin_gdl[1]",0.429612309524341,0.429612309524341,0,0,TRUE
+"syn150","ROC","DeLong CI hypertension hemoglobin_gdl[2]",0.728706875535081,0.728706875535081,0,0,TRUE
+"syn150","ROC","Youden cut-off hypertension hemoglobin_gdl",11.65,11.65,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[1]",36.8421052631579,36.8421052631579,7.105427357601e-15,1.92861599706313e-16,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[2]",83.8709677419355,83.8709677419355,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[3]",25.9259259259259,25.9259259259259,7.105427357601e-15,2.74066483793182e-16,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[4]",89.6551724137931,89.6551724137931,0,0,TRUE
+"syn150","ROC","AUC hypertension fasting_glucose_mgdl",0.525254668930391,0.525254668930391,0,0,TRUE
+"syn150","ROC","DeLong CI hypertension fasting_glucose_mgdl[1]",0.375445227741431,0.375445227741431,0,0,TRUE
+"syn150","ROC","DeLong CI hypertension fasting_glucose_mgdl[2]",0.67506411011935,0.67506411011935,0,0,TRUE
+"syn150","ROC","Youden cut-off hypertension fasting_glucose_mgdl",139.5,139.5,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[1]",36.8421052631579,36.8421052631579,7.105427357601e-15,1.92861599706313e-16,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[2]",77.4193548387097,77.4193548387097,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[3]",20,20,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[4]",88.8888888888889,88.8888888888889,0,0,TRUE
+"syn150","ROC","AUC hypertension uric_acid_mgdl",0.490449915110357,0.490449915110357,0,0,TRUE
+"syn150","ROC","DeLong CI hypertension uric_acid_mgdl[1]",0.353108329519736,0.353108329519736,1.11022302462516e-16,3.14414283609558e-16,TRUE
+"syn150","ROC","DeLong CI hypertension uric_acid_mgdl[2]",0.627791500700977,0.627791500700977,0,0,TRUE
+"syn150","ROC","Youden cut-off hypertension uric_acid_mgdl",5.85,5.85,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[1]",63.1578947368421,63.1578947368421,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[2]",46.7741935483871,46.7741935483871,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[3]",15.3846153846154,15.3846153846154,0,0,TRUE
+"syn150","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[4]",89.2307692307692,89.2307692307692,0,0,TRUE
+"syn1000","prevalence","percentage",14.5061728395062,14.5061728395062,0,0,TRUE
+"syn1000","prevalence","CI limits[1]",12.3509807781575,12.3509807781575,0,0,TRUE
+"syn1000","prevalence","CI limits[2]",16.8788483574917,16.8788483574917,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk W[1]",0.998459290094402,0.998459290094402,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk W[2]",0.997577356454459,0.997577356454459,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk W[3]",0.995273066230844,0.995273066230844,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk W[4]",0.996959442857051,0.996959442857051,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk W[5]",0.997841624299281,0.997841624299281,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk p[1]",0.528328537923984,0.528328537923984,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk p[2]",0.146905563596815,0.146905563596815,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk p[3]",0.00341440910557479,0.00341440910557479,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk p[4]",0.0534381138672439,0.0534381138672439,0,0,TRUE
+"syn1000","normality","Shapiro-Wilk p[5]",0.22250422779833,0.22250422779833,0,0,TRUE
+"syn1000","group comparison","p-value (test chosen by RegiStat)[1]",0.000204282989386335,0.000204282989386335,0,0,TRUE
+"syn1000","group comparison","p-value (test chosen by RegiStat)[2]",0.362231363089588,0.362231363089588,0,0,TRUE
+"syn1000","group comparison","p-value (test chosen by RegiStat)[3]",0.394225976426185,0.394225976426185,0,0,TRUE
+"syn1000","group comparison","p-value (test chosen by RegiStat)[4]",0.147731905514143,0.147731905514143,0,0,TRUE
+"syn1000","group comparison","p-value (test chosen by RegiStat)[5]",0.790924805300057,0.790924805300057,0,0,TRUE
+"syn1000","association","p-value sex_at_birth",0.875501668482434,0.875501668482434,0,0,TRUE
+"syn1000","association","p-value ckd",0.109815534402573,0.109815534402573,0,0,TRUE
+"syn1000","correlation","Spearman rho[1]",0.0701203589259222,0.0701203589259222,0,0,TRUE
+"syn1000","correlation","Spearman rho[2]",-0.0523337786186295,-0.0523337786186295,0,0,TRUE
+"syn1000","correlation","Spearman rho[3]",0.0197069349101513,0.0197069349101513,0,0,TRUE
+"syn1000","correlation","Spearman rho[4]",-0.00929999229701603,-0.00929999229701603,0,0,TRUE
+"syn1000","correlation","Spearman rho[5]",0.00871872090065466,0.00871872090065466,0,0,TRUE
+"syn1000","correlation","Spearman rho[6]",0.00197121001521204,0.00197121001521204,0,0,TRUE
+"syn1000","correlation","p-value[1]",0.0265987153767338,0.0265987153767338,0,0,TRUE
+"syn1000","correlation","p-value[2]",0.0981268967259384,0.0981268967259384,0,0,TRUE
+"syn1000","correlation","p-value[3]",0.533633512032873,0.533633512032873,0,0,TRUE
+"syn1000","correlation","p-value[4]",0.768964148376286,0.768964148376286,0,0,TRUE
+"syn1000","correlation","p-value[5]",0.783031559079235,0.783031559079235,0,0,TRUE
+"syn1000","correlation","p-value[6]",0.950357987358242,0.950357987358242,0,0,TRUE
+"syn1000","correlation","Holm-adjusted p[1]",0.159592292260403,0.159592292260403,0,0,TRUE
+"syn1000","correlation","Holm-adjusted p[2]",0.490634483629692,0.490634483629692,0,0,TRUE
+"syn1000","correlation","Holm-adjusted p[3]",1,1,0,0,TRUE
+"syn1000","correlation","Holm-adjusted p[4]",1,1,0,0,TRUE
+"syn1000","correlation","Holm-adjusted p[5]",1,1,0,0,TRUE
+"syn1000","correlation","Holm-adjusted p[6]",1,1,0,0,TRUE
+"syn1000","logistic","coefficients[1]",-4.82569476202662,-4.82569476202662,0,0,TRUE
+"syn1000","logistic","coefficients[2]",0.0307882380303728,0.0307882380303728,0,0,TRUE
+"syn1000","logistic","coefficients[3]",0.0339799488820315,0.0339799488820315,0,0,TRUE
+"syn1000","logistic","coefficients[4]",0.00135247646338293,0.00135247646338293,0,0,TRUE
+"syn1000","logistic","coefficients[5]",0.035581821420824,0.035581821420824,0,0,TRUE
+"syn1000","logistic","coefficients[6]",0.0833602727646059,0.0833602727646059,0,0,TRUE
+"syn1000","logistic","OR[1]",1.03126709761047,1.03126709761047,0,0,TRUE
+"syn1000","logistic","OR[2]",1.03456386235809,1.03456386235809,0,0,TRUE
+"syn1000","logistic","OR[3]",1.00135339147214,1.00135339147214,0,0,TRUE
+"syn1000","logistic","OR[4]",1.03622242985104,1.03622242985104,0,0,TRUE
+"syn1000","logistic","OR[5]",1.08693333049258,1.08693333049258,0,0,TRUE
+"syn1000","logistic","OR profile CI[1]",1.01396002507447,1.01396002507447,0,0,TRUE
+"syn1000","logistic","OR profile CI[2]",0.709195378259054,0.709195378259054,0,0,TRUE
+"syn1000","logistic","OR profile CI[3]",0.997967828499218,0.997967828499218,0,0,TRUE
+"syn1000","logistic","OR profile CI[4]",0.922213574103587,0.922213574103587,0,0,TRUE
+"syn1000","logistic","OR profile CI[5]",0.964386486524933,0.964386486524933,0,0,TRUE
+"syn1000","logistic","OR profile CI[6]",1.04918463038944,1.04918463038944,0,0,TRUE
+"syn1000","logistic","OR profile CI[7]",1.50546455184453,1.50546455184453,0,0,TRUE
+"syn1000","logistic","OR profile CI[8]",1.00475499910164,1.00475499910164,0,0,TRUE
+"syn1000","logistic","OR profile CI[9]",1.16457977947437,1.16457977947437,0,0,TRUE
+"syn1000","logistic","OR profile CI[10]",1.22599140264023,1.22599140264023,0,0,TRUE
+"syn1000","logistic","Wald p[1]",0.000402561435109277,0.000402561435109277,0,0,TRUE
+"syn1000","logistic","Wald p[2]",0.859309905009446,0.859309905009446,0,0,TRUE
+"syn1000","logistic","Wald p[3]",0.433525990516693,0.433525990516693,0,0,TRUE
+"syn1000","logistic","Wald p[4]",0.549524835153402,0.549524835153402,0,0,TRUE
+"syn1000","logistic","Wald p[5]",0.172844051409039,0.172844051409039,0,0,TRUE
+"syn1000","logistic","Nagelkerke R2",0.0287982956495191,0.0287982956495192,1.87350135405495e-16,6.50559802863274e-15,TRUE
+"syn1000","logistic","AIC",786.248263872156,786.248263872156,0,0,TRUE
+"syn1000","logistic","VIF/GVIF^(1/Df)[1]",1.00985698002664,1.00985698002664,0,0,TRUE
+"syn1000","logistic","VIF/GVIF^(1/Df)[2]",1.05862235373298,1.05862235373298,0,0,TRUE
+"syn1000","logistic","VIF/GVIF^(1/Df)[3]",1.00384423626019,1.00384423626019,0,0,TRUE
+"syn1000","logistic","VIF/GVIF^(1/Df)[4]",1.06672247380267,1.06672247380267,0,0,TRUE
+"syn1000","logistic","VIF/GVIF^(1/Df)[5]",1.00897618680714,1.00897618680714,0,0,TRUE
+"syn1000","selection","AIC of final model",781.309534521046,781.309534521046,0,0,TRUE
+"syn1000","selection","number of selected terms",2,2,0,0,TRUE
+"syn1000","selection","same terms selected (1 = yes)",1,1,0,0,TRUE
+"syn1000","ROC","AUC hypertension age_years",0.598723233564619,0.598723233564619,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension age_years[1]",0.548173385126778,0.548173385126778,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension age_years[2]",0.649273082002461,0.649273082002461,0,0,TRUE
+"syn1000","ROC","Youden cut-off hypertension age_years",60.5,60.5,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension age_years[1]",58.1560283687943,58.1560283687943,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension age_years[2]",60.6498194945848,60.6498194945848,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension age_years[3]",20.0488997555012,20.0488997555012,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension age_years[4]",89.5204262877442,89.5204262877442,0,0,TRUE
+"syn1000","ROC","AUC hypertension hemoglobin_gdl",0.524822695035461,0.524822695035461,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension hemoglobin_gdl[1]",0.474882902899159,0.474882902899159,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension hemoglobin_gdl[2]",0.574762487171763,0.574762487171763,0,0,TRUE
+"syn1000","ROC","Youden cut-off hypertension hemoglobin_gdl",11.65,11.65,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[1]",82.9787234042553,82.9787234042553,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[2]",23.7063778580024,23.7063778580024,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[3]",15.5792276964048,15.5792276964048,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension hemoglobin_gdl[4]",89.1402714932127,89.1402714932127,0,0,TRUE
+"syn1000","ROC","AUC hypertension fasting_glucose_mgdl",0.522415956166628,0.522415956166628,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension fasting_glucose_mgdl[1]",0.469227804620667,0.469227804620667,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension fasting_glucose_mgdl[2]",0.57560410771259,0.57560410771259,0,0,TRUE
+"syn1000","ROC","Youden cut-off hypertension fasting_glucose_mgdl",177.5,177.5,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[1]",60.9929078014184,60.9929078014184,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[2]",45.8483754512635,45.8483754512635,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[3]",16.044776119403,16.044776119403,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension fasting_glucose_mgdl[4]",87.3853211009174,87.3853211009174,0,0,TRUE
+"syn1000","ROC","AUC hypertension uric_acid_mgdl",0.524600797125569,0.524600797125569,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension uric_acid_mgdl[1]",0.476093207487236,0.476093207487236,0,0,TRUE
+"syn1000","ROC","DeLong CI hypertension uric_acid_mgdl[2]",0.573108386763901,0.573108386763901,0,0,TRUE
+"syn1000","ROC","Youden cut-off hypertension uric_acid_mgdl",4.75,4.75,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[1]",82.9787234042553,82.9787234042553,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[2]",26.47412755716,26.47412755716,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[3]",16.0714285714286,16.0714285714286,0,0,TRUE
+"syn1000","ROC","sens/spec/PPV/NPV hypertension uric_acid_mgdl[4]",90.1639344262295,90.1639344262295,0,0,TRUE
+"pima532","prevalence","percentage",33.2706766917293,33.2706766917293,0,0,TRUE
+"pima532","prevalence","CI limits[1]",29.2753573805658,29.2753573805658,0,0,TRUE
+"pima532","prevalence","CI limits[2]",37.453108840986,37.453108840986,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[1]",0.872964013649134,0.872964013649134,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[2]",0.957842127621126,0.957842127621126,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[3]",0.989713512887806,0.989713512887806,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[4]",0.967903669631853,0.967903669631853,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[5]",0.977575550821677,0.977575550821677,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[6]",0.844740807550716,0.844740807550716,0,0,TRUE
+"pima532","normality","Shapiro-Wilk W[7]",0.853920786647948,0.853920786647948,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[1]",2.03170637253398e-20,2.03170637253398e-20,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[2]",3.34549394529412e-11,3.34549394529412e-11,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[3]",0.000882561052380707,0.000882561052380707,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[4]",2.17738778597326e-09,2.17738778597326e-09,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[5]",2.7825793754548e-07,2.7825793754548e-07,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[6]",2.02228700289814e-22,2.02228700289814e-22,0,0,TRUE
+"pima532","normality","Shapiro-Wilk p[7]",8.40723851118856e-22,8.40723851118856e-22,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[1]",3.20684823540759e-06,3.20684823540759e-06,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[2]",2.01071777376076e-28,2.01071777376076e-28,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[3]",1.02775734163267e-05,1.02775734163267e-05,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[4]",2.26930291623554e-09,2.26930291623554e-09,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[5]",1.02588422797911e-11,1.02588422797911e-11,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[6]",7.38261979346636e-08,7.38261979346636e-08,0,0,TRUE
+"pima532","group comparison","p-value (test chosen by RegiStat)[7]",3.45737086135437e-17,3.45737086135437e-17,0,0,TRUE
+"pima532","correlation","Spearman rho[1]",0.248285055638696,0.248285055638696,0,0,TRUE
+"pima532","correlation","Spearman rho[2]",0.237016787977787,0.237016787977787,0,0,TRUE
+"pima532","correlation","Spearman rho[3]",0.228006674075567,0.228006674075567,0,0,TRUE
+"pima532","correlation","Spearman rho[4]",0.167295765993778,0.167295765993778,0,0,TRUE
+"pima532","correlation","Spearman rho[5]",0.107884089848116,0.107884089848116,0,0,TRUE
+"pima532","correlation","Spearman rho[6]",0.0786179726090741,0.0786179726090741,0,0,TRUE
+"pima532","correlation","p-value[1]",6.46018165873235e-09,6.46018165873235e-09,0,0,TRUE
+"pima532","correlation","p-value[2]",3.14808225222217e-08,3.14808225222217e-08,0,0,TRUE
+"pima532","correlation","p-value[3]",1.05594746738407e-07,1.05594746738407e-07,0,0,TRUE
+"pima532","correlation","p-value[4]",0.000105762050709453,0.000105762050709453,0,0,TRUE
+"pima532","correlation","p-value[5]",0.0127823087882063,0.0127823087882063,0,0,TRUE
+"pima532","correlation","p-value[6]",0.0700057727319401,0.0700057727319401,0,0,TRUE
+"pima532","correlation","Holm-adjusted p[1]",3.87610899523941e-08,3.87610899523941e-08,0,0,TRUE
+"pima532","correlation","Holm-adjusted p[2]",1.57404112611108e-07,1.57404112611108e-07,0,0,TRUE
+"pima532","correlation","Holm-adjusted p[3]",4.22378986953627e-07,4.22378986953627e-07,0,0,TRUE
+"pima532","correlation","Holm-adjusted p[4]",0.00031728615212836,0.00031728615212836,0,0,TRUE
+"pima532","correlation","Holm-adjusted p[5]",0.0255646175764125,0.0255646175764125,0,0,TRUE
+"pima532","correlation","Holm-adjusted p[6]",0.0700057727319401,0.0700057727319401,0,0,TRUE
+"pima532","logistic","coefficients[1]",-9.590822009207,-9.590822009207,0,0,TRUE
+"pima532","logistic","coefficients[2]",0.123496779890582,0.123496779890582,0,0,TRUE
+"pima532","logistic","coefficients[3]",0.0353518156275574,0.0353518156275574,0,0,TRUE
+"pima532","logistic","coefficients[4]",-0.0076110732736086,-0.0076110732736086,0,0,TRUE
+"pima532","logistic","coefficients[5]",0.0890628539437338,0.0890628539437338,0,0,TRUE
+"pima532","logistic","coefficients[6]",1.31306031989747,1.31306031989747,0,0,TRUE
+"pima532","logistic","coefficients[7]",0.026716401323368,0.026716401323368,0,0,TRUE
+"pima532","logistic","OR[1]",1.13144636115513,1.13144636115513,0,0,TRUE
+"pima532","logistic","OR[2]",1.03598412009642,1.03598412009642,0,0,TRUE
+"pima532","logistic","OR[3]",0.992417817601259,0.992417817601259,0,0,TRUE
+"pima532","logistic","OR[4]",1.09314936291562,1.09314936291562,0,0,TRUE
+"pima532","logistic","OR[5]",3.71753316227504,3.71753316227504,0,0,TRUE
+"pima532","logistic","OR[6]",1.02707648392498,1.02707648392498,0,0,TRUE
+"pima532","logistic","OR profile CI[1]",1.03958633829212,1.03958633829212,0,0,TRUE
+"pima532","logistic","OR profile CI[2]",1.0276721959691,1.0276721959691,0,0,TRUE
+"pima532","logistic","OR profile CI[3]",0.972559597371477,0.972559597371477,0,0,TRUE
+"pima532","logistic","OR profile CI[4]",1.05423961809909,1.05423961809909,0,0,TRUE
+"pima532","logistic","OR profile CI[5]",1.84038343857983,1.84038343857983,0,0,TRUE
+"pima532","logistic","OR profile CI[6]",0.999525840596197,0.999525840596197,0,0,TRUE
+"pima532","logistic","OR profile CI[7]",1.23431171503412,1.23431171503412,0,0,TRUE
+"pima532","logistic","OR profile CI[8]",1.04493849519546,1.04493849519546,0,0,TRUE
+"pima532","logistic","OR profile CI[9]",1.01276869719163,1.01276869719163,0,0,TRUE
+"pima532","logistic","OR profile CI[10]",1.13528091936417,1.13528091936417,0,0,TRUE
+"pima532","logistic","OR profile CI[11]",7.67111674771951,7.67111674771951,0,0,TRUE
+"pima532","logistic","OR profile CI[12]",1.05598081592281,1.05598081592281,0,0,TRUE
+"pima532","logistic","Wald p[1]",0.004704988662563,0.004704988662563,0,0,TRUE
+"pima532","logistic","Wald p[2]",7.67360227409243e-17,7.67360227409243e-17,0,0,TRUE
+"pima532","logistic","Wald p[3]",0.460011710104322,0.460011710104322,0,0,TRUE
+"pima532","logistic","Wald p[4]",2.24918523336666e-06,2.24918523336666e-06,0,0,TRUE
+"pima532","logistic","Wald p[5]",0.000307218594879507,0.000307218594879507,0,0,TRUE
+"pima532","logistic","Wald p[6]",0.0555533657869011,0.0555533657869011,0,0,TRUE
+"pima532","logistic","Nagelkerke R2",0.453565126821503,0.453565126821503,2.77555756156289e-16,6.11942452677847e-16,TRUE
+"pima532","logistic","AIC",480.534063187108,480.534063187108,0,0,TRUE
+"pima532","logistic","VIF/GVIF^(1/Df)[1]",1.68070680286983,1.68070680286983,0,0,TRUE
+"pima532","logistic","VIF/GVIF^(1/Df)[2]",1.0507045945702,1.0507045945702,0,0,TRUE
+"pima532","logistic","VIF/GVIF^(1/Df)[3]",1.23118768292753,1.23118768292753,0,0,TRUE
+"pima532","logistic","VIF/GVIF^(1/Df)[4]",1.12212160490595,1.12212160490595,0,0,TRUE
+"pima532","logistic","VIF/GVIF^(1/Df)[5]",1.014642010296,1.014642010296,0,0,TRUE
+"pima532","logistic","VIF/GVIF^(1/Df)[6]",1.80966217675669,1.80966217675669,0,0,TRUE
+"pima532","selection","AIC of final model",479.07847442938,479.07847442938,0,0,TRUE
+"pima532","selection","number of selected terms",5,5,0,0,TRUE
+"pima532","selection","same terms selected (1 = yes)",1,1,0,0,TRUE
+"pima532","ROC","AUC diabetes npreg",0.622646614148166,0.622646614148166,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes npreg[1]",0.568972197172062,0.568972197172062,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes npreg[2]",0.67632103112427,0.67632103112427,0,0,TRUE
+"pima532","ROC","Youden cut-off diabetes npreg",6.5,6.5,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes npreg[1]",35.5932203389831,35.5932203389831,7.105427357601e-15,1.99628673380219e-16,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes npreg[2]",88.7323943661972,88.7323943661972,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes npreg[3]",61.1650485436893,61.1650485436893,7.105427357601e-15,1.16168098068715e-16,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes npreg[4]",73.4265734265734,73.4265734265734,0,0,TRUE
+"pima532","ROC","AUC diabetes glu",0.793976287101138,0.793976287101138,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes glu[1]",0.753043012471013,0.753043012471013,1.11022302462516e-16,1.47431555201887e-16,TRUE
+"pima532","ROC","DeLong CI diabetes glu[2]",0.834909561731263,0.834909561731263,1.11022302462516e-16,1.32975243728555e-16,TRUE
+"pima532","ROC","Youden cut-off diabetes glu",127.5,127.5,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes glu[1]",66.6666666666667,66.6666666666667,1.4210854715202e-14,2.1316282072803e-16,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes glu[2]",80,80,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes glu[3]",62.4338624338624,62.4338624338624,1.4210854715202e-14,2.27614537387558e-16,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes glu[4]",82.798833819242,82.798833819242,0,0,TRUE
+"pima532","ROC","AUC diabetes bp",0.617132171560436,0.617132171560436,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes bp[1]",0.566625159222715,0.566625159222715,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes bp[2]",0.667639183898157,0.667639183898157,0,0,TRUE
+"pima532","ROC","Youden cut-off diabetes bp",75.5,75.5,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes bp[1]",49.7175141242938,49.7175141242938,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes bp[2]",69.8591549295775,69.8591549295775,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes bp[3]",45.1282051282051,45.1282051282051,7.105427357601e-15,1.57449810765022e-16,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes bp[4]",73.5905044510386,73.5905044510386,0,0,TRUE
+"pima532","ROC","AUC diabetes skin",0.658844592981619,0.658844592981619,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes skin[1]",0.611389417398969,0.611389417398969,0,0,TRUE
+"pima532","ROC","DeLong CI diabetes skin[2]",0.706299768564268,0.706299768564268,0,0,TRUE
+"pima532","ROC","Youden cut-off diabetes skin",23.5,23.5,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes skin[1]",84.7457627118644,84.7457627118644,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes skin[2]",39.4366197183099,39.4366197183099,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes skin[3]",41.0958904109589,41.0958904109589,0,0,TRUE
+"pima532","ROC","sens/spec/PPV/NPV diabetes skin[4]",83.8323353293413,83.8323353293413,0,0,TRUE

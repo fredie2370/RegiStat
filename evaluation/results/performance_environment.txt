@@ -1,0 +1,7 @@
+R: R version 4.3.3 (2024-02-29)
+RegiStat: 0.2.0
+Platform: x86_64-pc-linux-gnu
+CPU: model name	: Intel(R) Xeon(R) Processor @ 2.10GHz
+Memory: MemTotal:        8215296 kB
+Logical cores: 2
+Date: 2026-11-08

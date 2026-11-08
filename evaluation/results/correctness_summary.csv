@@ -1,0 +1,24 @@
+"dataset","domain","comparisons","equivalent","max_rel_diff"
+"pima532","ROC",32,32,2.27614537387558e-16
+"syn1000","ROC",32,32,0
+"syn150","ROC",32,32,3.14414283609558e-16
+"syn1000","association",2,2,0
+"syn150","association",2,2,3.37864251307315e-16
+"pima532","correlation",18,18,0
+"syn1000","correlation",18,18,0
+"syn150","correlation",18,18,0
+"pima532","group comparison",7,7,0
+"syn1000","group comparison",5,5,0
+"syn150","group comparison",5,5,0
+"pima532","logistic",39,39,6.11942452677847e-16
+"syn1000","logistic",33,33,6.50559802863274e-15
+"syn150","logistic",33,33,9.85971757576189e-15
+"pima532","normality",14,14,0
+"syn1000","normality",10,10,0
+"syn150","normality",10,10,0
+"pima532","prevalence",3,3,0
+"syn1000","prevalence",3,3,0
+"syn150","prevalence",3,3,0
+"pima532","selection",3,3,0
+"syn1000","selection",3,3,0
+"syn150","selection",3,3,0

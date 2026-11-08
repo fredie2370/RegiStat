@@ -1,0 +1,11 @@
+"alteration","trials","detected_file_only","detected_with_anchor","rate_file_only","rate_with_anchor"
+"record value changed, no audit entry",50,50,50,1,1
+"audit entry content changed",50,50,50,1,1
+"audit entry actor or reason changed",50,50,50,1,1
+"audit entry deleted (middle)",50,50,50,1,1
+"audit log truncated (last entries removed)",50,50,50,1,1
+"audit entries reordered",50,50,50,1,1
+"fake entry appended with wrong hash",50,50,50,1,1
+"record row deleted, no audit entry",50,50,50,1,1
+"deleted flag cleared, no audit entry",50,50,50,1,1
+"whole chain rewritten consistently (known limit)",50,0,50,0,1
