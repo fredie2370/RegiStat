@@ -65,7 +65,7 @@ test_that("launchers are written for each system", {
   expect_match(txt, "RegiStat::run_app(folder = \\\"C:/Users/x/RegiStat\\\"", fixed = TRUE)
   m <- create_launcher(d, "/home/x/R", "es", "macos")
   expect_equal(basename(m), "RegiStat.command")
-  expect_true(file.access(m, 1) == 0)
+  if (.Platform$OS.type != "windows") expect_true(file.access(m, 1) == 0)
   expect_match(readLines(m), "lang = \"es\"", fixed = TRUE, all = FALSE)
   expect_error(create_launcher(file.path(d, "nope")), "does not exist")
 })
