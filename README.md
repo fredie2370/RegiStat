@@ -1,5 +1,7 @@
 # RegiStat
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23935281.svg)](https://doi.org/10.5281/zenodo.23935281)
+
 > **Status: pre-alpha (0.2.0).** Early development. The API will change.
 
 **RegiStat** is a free, open-source toolkit for clinical and laboratory
@@ -210,7 +212,9 @@ AI model (Claude, Anthropic). The author is responsible for the content.
 
 ## Citation and license / Cita y licencia
 
-See [CITATION.cff](CITATION.cff). Licensed under the
+See [CITATION.cff](CITATION.cff). To cite all versions use the concept DOI
+[10.5281/zenodo.23935281](https://doi.org/10.5281/zenodo.23935281); each
+release also has its own version DOI on Zenodo. Licensed under the
 [GNU General Public License v3.0 or later](LICENSE.md).
 
 Copyright (C) 2026 Manuel Gutiérrez Rodríguez.

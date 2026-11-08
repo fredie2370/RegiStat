@@ -5,6 +5,7 @@ type: software
 version: 0.2.0
 date-released: 2026-11-06
 license: GPL-3.0-or-later
+doi: 10.5281/zenodo.23935281
 authors:
   - family-names: "Gutiérrez Rodríguez"
     given-names: "Manuel"
